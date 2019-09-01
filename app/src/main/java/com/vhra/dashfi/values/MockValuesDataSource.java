@@ -169,6 +169,11 @@ public class MockValuesDataSource implements ValuesDataSource {
         createValue("Farmacia do trabalhado", 14.00,"medicamento", "agosto", "gastos", "2019", "nubank");
         createValue("Farmacia do trabalhado", 35.80,"medicamento", "agosto", "gastos", "2019", "nubank");
 
+        createValue("Fatura da Claro", 61.30, "agosto", "gastos", "2019", "claro");
+        createValue("Fatura da Vivo", 305.61, "agosto", "gastos", "2019", "vivo");
+        createValue("Mensalidade da Unibratec", 373.66, "agosto", "gastos", "2019", "unibratec");
+        createValue("Aluguel de Agosot/2019", 350, "agosto", "gastos", "2019", "aluguel");
+
 
 
         createValue("Salarario de Agosto/2019", 5000.00, "ganho", "agosto", "2019", "receita");

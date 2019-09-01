@@ -34,6 +34,8 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 tools:text="Item Name"
+                android:textColor="#000"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_value"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +48,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 tools:text="0"
+                android:textColor="#000"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/text_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/text_title" />

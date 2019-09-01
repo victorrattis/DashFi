@@ -15,26 +15,30 @@ public class MockCardsDataSource2 implements CardsDataSource {
         mCardDetails.add(createCardDetail(
                 "Saldo de Agosto/2019", "label:agosto,receita,2019-agosto,gastos,2019", 0, null));
 
+
+        mCardDetails.add(createCardDetail(
+                "Receita de Agosto/2019", "label:agosto,receita,2019", 0, null));
+
         List<CardItem> cardItems = new ArrayList<>();
-        cardItems.add(
-                createCardItem("Ganhos de Agosto/2019", "label:agosto,receita,2019", "one"));
         cardItems.add(
                 createCardItem("Mastercard Free", "label:agosto,gastos,mastercard,2019", "one"));
         cardItems.add(createCardItem("Nubank", "label:agosto,gastos,nubank,2019", "one"));
-        mCardDetails.add(createCardDetail(
-                "Gastos de Agosto/2019", "", /*"label:agosto,receita,2019-agosto,gastos,2019",*/ 1, cardItems));
+        cardItems.add(createCardItem("Claro", "label:agosto,gastos,claro,2019", "one"));
+        cardItems.add(createCardItem("Vivo", "label:agosto,gastos,vivo,2019", "one"));
+        cardItems.add(createCardItem("Unibratec", "label:agosto,gastos,unibratec,2019", "one"));
+        cardItems.add(createCardItem("Aluguel do AP", "label:agosto,gastos,aluguel,2019", "one"));
+        mCardDetails.add(createCardDetail("Gastos de Agosto/2019", "label:agosto,gastos,2019", 1, cardItems));
 
         List<CardItem> categoryCardItems = new ArrayList<>();
         categoryCardItems.add(createCardItem("Alimentação", "label:alimentação", "one"));
         categoryCardItems.add(createCardItem("Transporte", "label:agosto,gastos,transporte,2019", "one"));
         categoryCardItems.add(createCardItem("Casa Geral", "label:agosto,gastos,casa_geral,2019", "one"));
-        categoryCardItems.add(createCardItem("Transporte", "label:agosto,gastos,transporte,2019", "one"));
         categoryCardItems.add(createCardItem("Medicamento", "label:agosto,gastos,medicamento,2019", "one"));
         categoryCardItems.add(createCardItem("Meu Uber", "label:agosto,gastos,uber_eu,2019", "one"));
         categoryCardItems.add(createCardItem("Meu PC", "label:agosto,gastos,meupc,2019", "one"));
         categoryCardItems.add(createCardItem("Almoço", "label:agosto,gastos,almoço,2019", "one"));
         categoryCardItems.add(createCardItem("Inglês", "label:agosto,gastos,inglês,2019", "one"));
-        mCardDetails.add(createCardDetail("Gategorias", "", 1, categoryCardItems));
+        mCardDetails.add(createCardDetail("Categorias", "", 1, categoryCardItems));
 
         List<CardItem> freeCardItems = new ArrayList<>();
         freeCardItems.add(createCardItem("", "label:agosto,gastos,mastercard,2019", "list"));
