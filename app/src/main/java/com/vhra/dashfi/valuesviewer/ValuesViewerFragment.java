@@ -12,10 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vhra.dashfi.AddItemDialog;
+import com.vhra.dashfi.ui.addvalue.AddItemDialog;
 import com.vhra.dashfi.R;
 import com.vhra.dashfi.ValueDetail;
-import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.values.MockValuesDataSource;
 import com.vhra.dashfi.values.ValuesRepository;
 
@@ -65,10 +64,10 @@ public class ValuesViewerFragment extends Fragment {
 
         AddItemDialog dialog = new AddItemDialog(this.getContext());
         dialog.updateValueDetail(valueDetail);
-        dialog.setAddItemCompleteListener(updatedValue -> {
-            isDialogOpened = false;
-            mValuesRepository.updateValue(updatedValue, data -> mAdapter.notifyDataSetChanged());
-        });
+//        dialog.setAddItemCompleteListener(updatedValue -> {
+//            isDialogOpened = false;
+//            mValuesRepository.updateValue(updatedValue, data -> mAdapter.notifyDataSetChanged());
+//        });
         dialog.setOnDismissListener(dialogInterface -> isDialogOpened = false);
         dialog.show();
         isDialogOpened = true;

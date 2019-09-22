@@ -15,13 +15,11 @@ public class MockCardsDataSource2 implements CardsDataSource {
         mCardDetails.add(createCardDetail(
                 "Saldo de Agosto/2019", "label:agosto,receita,2019-agosto,gastos,2019", 0, null));
 
-
         mCardDetails.add(createCardDetail(
                 "Receita de Agosto/2019", "label:agosto,receita,2019", 0, null));
 
         List<CardItem> cardItems = new ArrayList<>();
-        cardItems.add(
-                createCardItem("Mastercard Free", "label:agosto,gastos,mastercard,2019", "one"));
+        cardItems.add(createCardItem("Mastercard Free", "label:agosto,gastos,mastercard,2019", "one"));
         cardItems.add(createCardItem("Nubank", "label:agosto,gastos,nubank,2019", "one"));
         cardItems.add(createCardItem("Claro", "label:agosto,gastos,claro,2019", "one"));
         cardItems.add(createCardItem("Vivo", "label:agosto,gastos,vivo,2019", "one"));
@@ -42,18 +40,15 @@ public class MockCardsDataSource2 implements CardsDataSource {
 
         List<CardItem> freeCardItems = new ArrayList<>();
         freeCardItems.add(createCardItem("", "label:agosto,gastos,mastercard,2019", "list"));
-        mCardDetails.add(createCardDetail(
-                "MasterCard Free Agosto/2019", "label:agosto,gastos,mastercard,2019", 1, freeCardItems));
+        mCardDetails.add(createCardDetail("MasterCard Free Agosto/2019", "label:agosto,gastos,mastercard,2019", 1, freeCardItems));
 
         List<CardItem> nubankCardItems = new ArrayList<>();
         nubankCardItems.add(createCardItem("", "label:agosto,gastos,nubank,2019", "list"));
-        mCardDetails.add(createCardDetail(
-                "Nubank Agosto/2019", "label:agosto,gastos,nubank,2019", 1, nubankCardItems));
+        mCardDetails.add(createCardDetail("Nubank Agosto/2019", "label:agosto,gastos,nubank,2019", 1, nubankCardItems));
 
         List<CardItem> eduardoCardItems = new ArrayList<>();
         eduardoCardItems.add(createCardItem("", "label:agosto,gastos,vinicius,2019", "list"));
-        mCardDetails.add(createCardDetail(
-                "Gasto de Vinicius Agosto/2019", "label:agosto,gastos,vinicius,2019", 1, eduardoCardItems));
+        mCardDetails.add(createCardDetail("Gasto de Vinicius Agosto/2019", "label:agosto,gastos,vinicius,2019", 1, eduardoCardItems));
 
     }
 
