@@ -8,4 +8,6 @@
     <string name="title_add_value">Adicionar Valor</string>
     <string name="title_all_values">Todos Valores</string>
     <string name="text_error_getting_values">Error para carregar os valores</string>
+    <string name="text_add_value_title">Adicionar</string>
+    <string name="text_save_value_title">Salvar</string>
 </resources>

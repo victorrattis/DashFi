@@ -65,7 +65,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Add"
+        android:text="Salvar"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

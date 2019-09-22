@@ -1,13 +1,10 @@
 package com.vhra.dashfi.data.room;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.annotation.UiThread;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
 import com.vhra.dashfi.ValueDetail;

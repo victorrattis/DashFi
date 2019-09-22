@@ -24,6 +24,7 @@ import com.vhra.dashfi.ui.addvalue.AddItemDialog;
 import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
 import com.vhra.dashfi.ui.values.ValuesFragment;
 import com.vhra.dashfi.ui.values.ValuesPresenter;
+import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.DiskIOThreadExecutor;
 import com.vhra.dashfi.utils.ILog;
 import com.vhra.dashfi.utils.LogUtils;
@@ -99,15 +100,23 @@ public class MainActivity extends AppCompatActivity {
     private void openAddItemDialog() {
         if (isDialogOpened) return;
 
+        openAddItemDialogInternal(null, (result) -> {
+            isDialogOpened = false;
+        });
+
+        isDialogOpened = true;
+    }
+
+    private void openAddItemDialogInternal(ValueDetail valueDetail, Callback<Boolean> callback) {
         AddItemDialog dialog = new AddItemDialog(this);
         new AddValuePresenter(
                 dialog,
+                valueDetail,
                 mUseCaseHandler,
                 getSaveValueUseCase());
 
-        dialog.setOnDismissListener(dialogInterface -> isDialogOpened = false);
+        dialog.setOnDismissListener(dialogInterface -> callback.onComplete(true));
         dialog.show();
-        isDialogOpened = true;
     }
 
     private void openDefaultDashboard() {
@@ -115,12 +124,17 @@ public class MainActivity extends AppCompatActivity {
         replaceContent(newFragment, false);
     }
 
+    public interface OpenAddValueView {
+        void open(ValueDetail valueDetail, Callback<Boolean> callback);
+    }
+
     private void openValuesViewer() {
         ValuesFragment newFragment = new ValuesFragment();
         new ValuesPresenter(
                 newFragment,
                 mUseCaseHandler,
-                getGetValuesUseCase());
+                getGetValuesUseCase(),
+                this::openAddItemDialogInternal);
 
         replaceContent(newFragment, true);
     }

@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vhra.dashfi.R;
 import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.ui.addvalue.AddItemDialog;
+import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
 
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class ValuesFragment extends Fragment implements ValuesPresenter.View {
         mAdapter = new ValueItemAdpater();
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(view -> mPresenter.onUpdateValueDetail());
+        mAdapter.setOnItemClickListener(valueDetail -> mPresenter.onUpdateValueDetail(valueDetail));
     }
 
     @Override

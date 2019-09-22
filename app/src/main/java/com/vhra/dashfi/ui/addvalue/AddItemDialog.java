@@ -3,17 +3,20 @@ package com.vhra.dashfi.ui.addvalue;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vhra.dashfi.R;
-import com.vhra.dashfi.ValueDetail;
 
 public class AddItemDialog extends Dialog implements AddValuePresenter.View {
-    private ValueDetail mValueDetail;
     private AddValuePresenter mPresenter;
+
+    private EditText mTitleEditText;
+    private EditText mValueEditText;
+    private EditText mLabelsEditText;
+
+    private Button mButton;
 
     public AddItemDialog(Context context) {
         super(context);
@@ -24,27 +27,20 @@ public class AddItemDialog extends Dialog implements AddValuePresenter.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_add_item);
 
-        EditText titleEditText = this.findViewById(R.id.edit_title);
-        EditText valueEditText = this.findViewById(R.id.edit_value);
-        EditText labelsEditText = this.findViewById(R.id.edit_labels);
+        mTitleEditText = this.findViewById(R.id.edit_title);
+        mValueEditText = this.findViewById(R.id.edit_value);
+        mLabelsEditText = this.findViewById(R.id.edit_labels);
 
-        // TODO: move to the presenter
-        if (mValueDetail != null) {
-            titleEditText.setText(mValueDetail.getTitle());
-            valueEditText.setText(String.valueOf(mValueDetail.getValue()));
-            labelsEditText.setText(TextUtils.join(",", mValueDetail.getLabels()));
-        }
-
-        Button button = this.findViewById(R.id.button_add_item);
-        if (button != null)
-            button.setOnClickListener(view ->
+        mButton = this.findViewById(R.id.button_add_item);
+        if (mButton != null)
+            mButton.setOnClickListener(view ->
                 mPresenter.onSaveValueClick(
-                        titleEditText.getText().toString(),
-                        valueEditText.getText().toString(),
-                        labelsEditText.getText().toString()));
+                        mTitleEditText.getText().toString(),
+                        mValueEditText.getText().toString(),
+                        mLabelsEditText.getText().toString()));
 
         mPresenter.init();
-        titleEditText.requestFocus();
+        mTitleEditText.requestFocus();
     }
 
     @Override
@@ -73,7 +69,34 @@ public class AddItemDialog extends Dialog implements AddValuePresenter.View {
                 Toast.LENGTH_LONG).show();
     }
 
-    public void updateValueDetail(ValueDetail valueDetail) {
-        mValueDetail = valueDetail;
+    @Override
+    public void showTitle(String title) {
+        if (mTitleEditText != null) {
+            mTitleEditText.setText(title);
+        }
+    }
+
+    @Override
+    public void showValue(String value) {
+        if (mValueEditText != null) {
+            mValueEditText.setText(value);
+        }
+    }
+
+    @Override
+    public void showLabels(String labels) {
+        if (mLabelsEditText != null) {
+            mLabelsEditText.setText(labels);
+        }
+    }
+
+    @Override
+    public void showAddValueButton() {
+        mButton.setText(R.string.text_add_value_title);
+    }
+
+    @Override
+    public void showSaveValueButton() {
+        mButton.setText(R.string.text_save_value_title);
     }
 }
