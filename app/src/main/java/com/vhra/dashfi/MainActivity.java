@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     private ValuesRepository createValuesRepository() {
         DiskIOThreadExecutor diskIOThreadExecutor = new DiskIOThreadExecutor();
         ValuesLocalDataSource valuesLocalDataSource = new ValuesLocalDataSource(
-                this.getApplication(), diskIOThreadExecutor, mLog);
+                this, this, diskIOThreadExecutor, mLog);
 
         return new ValuesRepository(valuesLocalDataSource, mLog);
     }

@@ -41,11 +41,6 @@ public class ValuesFragment extends Fragment implements ValuesPresenter.View {
         initializeCardListView(recyclerView, view.getContext());
 
         mLoadingView = view.findViewById(R.id.loading);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         if (mPresenter != null) mPresenter.init();
     }
 

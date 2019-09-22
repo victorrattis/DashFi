@@ -1,15 +1,15 @@
 package com.vhra.dashfi.data.room;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleObserver;
+import androidx.annotation.UiThread;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
-import com.vhra.dashfi.MainActivity;
 import com.vhra.dashfi.ValueDetail;
 import com.vhra.dashfi.data.ValuesDataSource;
 import com.vhra.dashfi.utils.Callback;
@@ -26,11 +26,19 @@ public class ValuesLocalDataSource implements ValuesDataSource {
     private Executor mIoExecutor;
     private ILog mLog;
 
-    public ValuesLocalDataSource(Context context, Executor ioExecutor, ILog log) {
+    private LifecycleOwner mLifecycleOwner;
+    private Handler mUiHandler;
+
+    public ValuesLocalDataSource(
+            LifecycleOwner lifecycleOwner, Context context, Executor ioExecutor, ILog log) {
         mLog = log;
         mIoExecutor = ioExecutor;
         final Context appContext = context.getApplicationContext();
         ioExecutor.execute(() -> initDatabase(appContext));
+
+        // TODO: Change it
+        mLifecycleOwner = lifecycleOwner;
+        mUiHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -49,12 +57,13 @@ public class ValuesLocalDataSource implements ValuesDataSource {
 
     @Override
     public void getAllValues(Callback<List<? extends ValueDetail>> callback) {
-        mIoExecutor.execute(() -> {
+        mUiHandler.post(() -> {
             try {
-                callback.onComplete(mAppDatabase.valueDao().getAllValues());
-
+                mAppDatabase.valueDao()
+                    .getLiveAllValues()
+                    .observe(mLifecycleOwner, callback::onComplete);
             } catch (Exception e) {
-                mLog.e(TAG, "Error get all values");
+                mLog.e(TAG, "Error get all values", e);
                 callback.onComplete(null);
             }
         });

@@ -1,5 +1,6 @@
 package com.vhra.dashfi.data.room;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -14,4 +15,7 @@ public interface ValueDao {
 
     @Query("SELECT * FROM value")
     List<ValueEntity> getAllValues();
+
+    @Query("SELECT * FROM value")
+    LiveData<List<ValueEntity>> getLiveAllValues();
 }
