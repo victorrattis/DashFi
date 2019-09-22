@@ -1,0 +1,32 @@
+ext.getVersionMap = { ->
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def major = versionProps['VERSION_MAJOR'].toInteger()
+        def minor = versionProps['VERSION_MINOR'].toInteger()
+        def buildBase = versionProps['VERSION_BUILD_BASE'].toInteger()
+        def out
+        exec {
+            commandLine "git"
+            args "rev-list", "HEAD", "--count"
+            out = standardOutput = new ByteArrayOutputStream()
+        }
+        def inStream = new ByteArrayInputStream(out.toByteArray())
+        def totalCommits = Integer.parseInt(inStream.getText().replace("\n", ""))
+        def buildNo = totalCommits - buildBase
+        def name = String.format("%02d.%02d.%02d", major, minor, buildNo)
+        def code = totalCommits
+
+        def versionMap = [:]
+        versionMap.name = name
+        versionMap.code = code
+        return versionMap
+
+    } else {
+        throw new Exception("Could not read version.properties!")
+    }
+}
