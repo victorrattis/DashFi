@@ -4,6 +4,8 @@ import com.vhra.dashfi.ValueDetail;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
 
+import java.util.List;
+
 public class ValuesRepository {
     private static final String TAG = "ValuesRepository";
 
@@ -23,6 +25,16 @@ public class ValuesRepository {
         }
 
         mValuesDataSource.saveValue(valueDetail,
-                (savedValueDetail) -> callback.onComplete(savedValueDetail != null));
+                savedValueDetail -> callback.onComplete(savedValueDetail != null));
+    }
+
+    public void getAllValues(Callback<List<? extends ValueDetail>> callback) {
+        if (mValuesDataSource == null) {
+            mLog.e(TAG, "Values Data Source is null!");
+            callback.onComplete(null);
+            return;
+        }
+
+        mValuesDataSource.getAllValues(callback);
     }
 }

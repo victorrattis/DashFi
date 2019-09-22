@@ -18,13 +18,15 @@ import com.vhra.dashfi.data.ValuesRepository;
 import com.vhra.dashfi.data.room.ValuesLocalDataSource;
 import com.vhra.dashfi.domain.UseCaseHandler;
 import com.vhra.dashfi.domain.UseCaseSchedulerImpl;
+import com.vhra.dashfi.domain.usecase.GetValuesUseCase;
 import com.vhra.dashfi.domain.usecase.SaveValueUseCase;
 import com.vhra.dashfi.ui.addvalue.AddItemDialog;
 import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
+import com.vhra.dashfi.ui.values.ValuesFragment;
+import com.vhra.dashfi.ui.values.ValuesPresenter;
 import com.vhra.dashfi.utils.DiskIOThreadExecutor;
 import com.vhra.dashfi.utils.ILog;
 import com.vhra.dashfi.utils.LogUtils;
-import com.vhra.dashfi.valuesviewer.ValuesViewerFragment;
 
 public class MainActivity extends AppCompatActivity {
     boolean isDialogOpened = false;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     private ILog mLog;
     private UseCaseHandler mUseCaseHandler;
     private ValuesRepository mValuesRepository;
+
+    private SaveValueUseCase mSaveValueUseCase;
+    private GetValuesUseCase mGetValuesUseCase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +65,11 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_add_value:
                     openAddItemDialog();
                     break;
+                case R.id.nav_all_values:
+                    openValuesViewer();
+                    break;
             }
 
-//            if (id == R.id.nav_all_values) {
-////                openValuesViewer();
-//
-//            } else
 //            } else if (id == R.id.nav_dashboard) {
 ////                openDefaultDashboard();
 //            }
@@ -99,11 +103,50 @@ public class MainActivity extends AppCompatActivity {
         new AddValuePresenter(
                 dialog,
                 mUseCaseHandler,
-                new SaveValueUseCase(getValuesRepository(), mLog));
+                getSaveValueUseCase());
 
         dialog.setOnDismissListener(dialogInterface -> isDialogOpened = false);
         dialog.show();
         isDialogOpened = true;
+    }
+
+    private void openDefaultDashboard() {
+        Fragment newFragment = new DashboardFragment();
+        replaceContent(newFragment, false);
+    }
+
+    private void openValuesViewer() {
+        ValuesFragment newFragment = new ValuesFragment();
+        new ValuesPresenter(
+                newFragment,
+                mUseCaseHandler,
+                getGetValuesUseCase());
+
+        replaceContent(newFragment, true);
+    }
+
+    private void replaceContent(Fragment fragment, boolean backstack) {
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content, fragment);
+        if (backstack) {
+            transaction.addToBackStack(null);
+        }
+        transaction.commit();
+    }
+
+    private SaveValueUseCase getSaveValueUseCase() {
+        if (mSaveValueUseCase == null) {
+            mSaveValueUseCase = new SaveValueUseCase(getValuesRepository(), mLog);
+        }
+        return mSaveValueUseCase;
+    }
+
+    private GetValuesUseCase getGetValuesUseCase() {
+        if (mGetValuesUseCase == null) {
+            mGetValuesUseCase = new GetValuesUseCase(getValuesRepository(), mLog);
+        }
+        return mGetValuesUseCase;
     }
 
     private ValuesRepository getValuesRepository() {
@@ -119,25 +162,5 @@ public class MainActivity extends AppCompatActivity {
                 this.getApplication(), diskIOThreadExecutor, mLog);
 
         return new ValuesRepository(valuesLocalDataSource, mLog);
-    }
-
-    private void openDefaultDashboard() {
-        Fragment newFragment = new DashboardFragment();
-        replaceContent(newFragment, false);
-    }
-
-    private void openValuesViewer() {
-        Fragment newFragment = new ValuesViewerFragment();
-        replaceContent(newFragment, true);
-    }
-
-    private void replaceContent(Fragment fragment, boolean backstack) {
-        FragmentTransaction transaction = getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content, fragment);
-        if (backstack) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
     }
 }

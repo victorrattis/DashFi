@@ -1,4 +1,4 @@
-package com.vhra.dashfi.valuesviewer;
+package com.vhra.dashfi.ui.values;
 
 import android.view.LayoutInflater;
 import android.view.View;

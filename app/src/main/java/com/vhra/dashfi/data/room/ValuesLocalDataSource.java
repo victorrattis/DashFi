@@ -2,13 +2,20 @@ package com.vhra.dashfi.data.room;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
+import com.vhra.dashfi.MainActivity;
 import com.vhra.dashfi.ValueDetail;
 import com.vhra.dashfi.data.ValuesDataSource;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class ValuesLocalDataSource implements ValuesDataSource {
@@ -35,6 +42,19 @@ public class ValuesLocalDataSource implements ValuesDataSource {
                 callback.onComplete(valueEntity);
             } catch (Exception e) {
                 mLog.e(TAG, "Error saving value");
+                callback.onComplete(null);
+            }
+        });
+    }
+
+    @Override
+    public void getAllValues(Callback<List<? extends ValueDetail>> callback) {
+        mIoExecutor.execute(() -> {
+            try {
+                callback.onComplete(mAppDatabase.valueDao().getAllValues());
+
+            } catch (Exception e) {
+                mLog.e(TAG, "Error get all values");
                 callback.onComplete(null);
             }
         });

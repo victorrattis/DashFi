@@ -5,4 +5,7 @@
     <string name="navigation_drawer_close">close</string>
     <string name="text_error_during_to_add_value">Error para adicionar o valor!</string>
     <string name="text_value_added_successfully">Valor adicionado</string>
+    <string name="title_add_value">Adicionar Valor</string>
+    <string name="title_all_values">Todos Valores</string>
+    <string name="text_error_getting_values">Error para carregar os valores</string>
 </resources>

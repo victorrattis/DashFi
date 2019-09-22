@@ -1,4 +1,4 @@
-package com.vhra.dashfi.valuesviewer;
+package com.vhra.dashfi.ui.values;
 
 import android.view.ViewGroup;
 
@@ -11,7 +11,7 @@ import com.vhra.dashfi.utils.OnItemClickListener;
 import java.util.List;
 
 public class ValueItemAdpater extends RecyclerView.Adapter<ValueItemView> {
-    private List<ValueDetail> mValueDetailList;
+    private List<? extends ValueDetail> mValueDetailList;
     private OnItemClickListener<ValueDetail> mOnItemClickListener;
 
     @NonNull
@@ -35,7 +35,7 @@ public class ValueItemAdpater extends RecyclerView.Adapter<ValueItemView> {
         mOnItemClickListener = listener;
     }
 
-    public void replaceData(List<ValueDetail> valueDetails) {
+    public void replaceData(List<? extends ValueDetail> valueDetails) {
         mValueDetailList = valueDetails;
         notifyDataSetChanged();
     }
