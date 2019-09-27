@@ -1,0 +1,38 @@
+name: Android CI
+
+on: 
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: Build Debug APK
+      # Build APK and reports for Debug build type. 
+      run: ./gradlew assembleDebug lintDebug testDebugUnitTest
+    
+    - name: Create Artifact Output folder
+      run: mkdir -p artifact
+    
+    - name: Move APKs to artifact
+      run: cp -r /home/runner/work/DashFi/DashFi/app/build/outputs/apk artifact/
+    
+    - name: Move Reports to artifact
+      run: cp -r /home/runner/work/DashFi/DashFi/app/build/reports artifact/
+
+    - name: Upload artifact as release
+      uses: actions/upload-artifact@master
+      with:
+        name: release
+        path: artifact
+
