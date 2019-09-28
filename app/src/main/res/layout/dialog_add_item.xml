@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/text_zero_decimal_value"
+        android:maxLength="20"
         android:inputType="numberDecimal|numberSigned"
         android:importantForAutofill="no"
         app:layout_constraintEnd_toEndOf="@+id/edit_labels"

@@ -3,20 +3,20 @@ package com.vhra.dashfi.ui.addvalue;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vhra.dashfi.R;
 
-public class AddItemDialog extends Dialog implements AddValuePresenter.View {
-    private AddValuePresenter mPresenter;
-
+public class AddItemDialog extends Dialog implements AddValuePresenter.View, View.OnClickListener {
     private EditText mTitleEditText;
     private EditText mValueEditText;
     private EditText mLabelsEditText;
-
     private Button mButton;
+
+    private AddValuePresenter mPresenter;
 
     public AddItemDialog(Context context) {
         super(context);
@@ -32,12 +32,7 @@ public class AddItemDialog extends Dialog implements AddValuePresenter.View {
         mLabelsEditText = this.findViewById(R.id.edit_labels);
 
         mButton = this.findViewById(R.id.button_save);
-        if (mButton != null)
-            mButton.setOnClickListener(view ->
-                mPresenter.onSaveValueClick(
-                        mTitleEditText.getText().toString(),
-                        mValueEditText.getText().toString(),
-                        mLabelsEditText.getText().toString()));
+        if (mButton != null) mButton.setOnClickListener(this);
 
         mPresenter.init();
         mTitleEditText.requestFocus();
@@ -70,6 +65,14 @@ public class AddItemDialog extends Dialog implements AddValuePresenter.View {
     }
 
     @Override
+    public void showAddValueErrorWithoutTitle() {
+        Toast.makeText(
+                this.getContext(),
+                R.string.text_error_value_without_title,
+                Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showTitle(String title) {
         if (mTitleEditText != null) {
             mTitleEditText.setText(title);
@@ -92,11 +95,25 @@ public class AddItemDialog extends Dialog implements AddValuePresenter.View {
 
     @Override
     public void showAddValueButton() {
-        mButton.setText(R.string.text_add_value_title);
+        if (mButton != null) {
+            mButton.setText(R.string.text_add_value_title);
+        }
     }
 
     @Override
     public void showSaveValueButton() {
-        mButton.setText(R.string.text_save_value_title);
+        if (mButton != null) {
+            mButton.setText(R.string.text_save_value_title);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view != null && view.getId() == R.id.button_save) {
+            mPresenter.onSaveValueClick(
+                    mTitleEditText.getText().toString(),
+                    mValueEditText.getText().toString(),
+                    mLabelsEditText.getText().toString());
+        }
     }
 }

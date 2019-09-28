@@ -1,43 +1,62 @@
 package com.vhra.dashfi.domain.usecase;
 
+import androidx.annotation.IntDef;
+
 import com.vhra.dashfi.ValueDetail;
 import com.vhra.dashfi.data.ValuesRepository;
 import com.vhra.dashfi.domain.UseCase;
 import com.vhra.dashfi.utils.Callback;
-import com.vhra.dashfi.utils.ILog;
 
-public class SaveValueUseCase implements UseCase<ValueDetail, Boolean> {
-    private static final String TAG = "SaveValueUseCase";
+public class SaveValueUseCase implements UseCase<ValueDetail, Integer> {
+    @IntDef({
+            VALUE_SAVED_SUCCESSFULLY_STATE,
+            UNSAVED_ERROR_VALUE_NULL_STATE,
+            UNSAVED_ERROR_EMPTY_TITLE_STATE,
+            UNSAVED_VALUE_STATE,
+            UNSAVED_ERROR_REPOSITORY_NULL})
+    public @interface SaveValueState {}
+    public static final int VALUE_SAVED_SUCCESSFULLY_STATE = 0;
+    public static final int UNSAVED_ERROR_VALUE_NULL_STATE = -1;
+    public static final int UNSAVED_ERROR_EMPTY_TITLE_STATE = -2;
+    public static final int UNSAVED_ERROR_REPOSITORY_NULL = -3;
+    public static final int UNSAVED_VALUE_STATE = -4;
 
-    private ILog mLog;
     private ValuesRepository mValuesRepository;
 
-    public SaveValueUseCase(ValuesRepository valuesRepository, ILog log) {
+    public SaveValueUseCase(ValuesRepository valuesRepository) {
         mValuesRepository = valuesRepository;
-        mLog = log;
     }
 
     @Override
-    public void execute(ValueDetail valueDetail, Callback<Boolean> callback) {
+    public void execute(ValueDetail valueDetail, Callback<Integer> callback) {
         if (mValuesRepository == null) {
-            mLog.e(TAG, "Values repository is null");
-            callback.onComplete(false);
+            callback.onComplete(UNSAVED_ERROR_REPOSITORY_NULL);
             return;
         }
 
-        if (isValueValid(valueDetail)) {
-            mValuesRepository.saveValue(valueDetail, callback);
+        @SaveValueState int isValueValid = validateValueDetail(valueDetail);
+        if (isValueValid == VALUE_SAVED_SUCCESSFULLY_STATE) {
+            mValuesRepository.saveValue(valueDetail, saved -> callback.onComplete(saved ?
+                    VALUE_SAVED_SUCCESSFULLY_STATE : UNSAVED_VALUE_STATE));
         } else {
-            mLog.e(TAG, "value is not valid!");
-            callback.onComplete(false);
+            callback.onComplete(isValueValid);
         }
     }
 
-    private boolean isValueValid(ValueDetail valueDetail) {
-        return valueDetail != null && isTitleValid(valueDetail.getTitle());
+    private @SaveValueState
+    int validateValueDetail(final ValueDetail valueDetail) {
+        if (valueDetail == null){
+            return UNSAVED_ERROR_VALUE_NULL_STATE;
+
+        } else if (isTextEmpty(valueDetail.getTitle())) {
+            return UNSAVED_ERROR_EMPTY_TITLE_STATE;
+
+        } else {
+            return VALUE_SAVED_SUCCESSFULLY_STATE;
+        }
     }
 
-    private boolean isTitleValid(final String title) {
-        return title != null && !title.isEmpty();
+    private boolean isTextEmpty(final String title) {
+        return title == null || title.isEmpty();
     }
 }

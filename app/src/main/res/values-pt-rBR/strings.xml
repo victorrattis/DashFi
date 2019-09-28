@@ -13,4 +13,5 @@
     <string name="text_add_value_dialog_title">Valor</string>
     <string name="text_value_title_field">Título</string>
     <string name="text_label_title_field">Rétulos</string>
+    <string name="text_error_value_without_title">Error ao adicionar: Sem título!</string>
 </resources>

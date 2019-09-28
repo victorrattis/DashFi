@@ -10,12 +10,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static com.vhra.dashfi.domain.usecase.SaveValueUseCase.UNSAVED_ERROR_EMPTY_TITLE_STATE;
+import static com.vhra.dashfi.domain.usecase.SaveValueUseCase.VALUE_SAVED_SUCCESSFULLY_STATE;
+
 public class AddValuePresenter {
     public interface View {
         void setPresenter(AddValuePresenter presenter);
         void dismissView();
         void showValueAdded();
         void showAddValueError();
+        void showAddValueErrorWithoutTitle();
         void showTitle(String title);
         void showValue(String value);
         void showLabels(String labels);
@@ -30,14 +34,14 @@ public class AddValuePresenter {
 
     private View mView;
     private UseCaseHandler mUseCaseHandler;
-    private UseCase<ValueDetail, Boolean> mAddValueUseCase;
+    private UseCase<ValueDetail, Integer> mAddValueUseCase;
     private ValueDetail mValueDetail;
 
     public AddValuePresenter(
             View view,
             ValueDetail valueDetail,
             UseCaseHandler useCaseHandler,
-            UseCase<ValueDetail, Boolean> addValueUseCase) {
+            UseCase<ValueDetail, Integer> addValueUseCase) {
         mView = view;
         if (mView != null) mView.setPresenter(this);
         mUseCaseHandler = useCaseHandler;
@@ -77,14 +81,14 @@ public class AddValuePresenter {
         mView.showSaveValueButton();
     }
 
-    private void updateViewWithOnValuedAdded(final boolean isValueAdded) {
+    private void updateViewWithOnValuedAdded(final Integer addedValueState) {
         if (mView == null) return;
 
-        if (isValueAdded) {
+        if (isAddedValueStateValid(addedValueState)) {
             mView.showValueAdded();
             dismissView();
         } else {
-            mView.showAddValueError();
+            showAddValueError(addedValueState);
         }
     }
 
@@ -105,5 +109,17 @@ public class AddValuePresenter {
         } catch (NumberFormatException e) {
             return defaultValue;
         }
+    }
+
+    private void showAddValueError(final Integer valueState) {
+        if (valueState == UNSAVED_ERROR_EMPTY_TITLE_STATE) {
+            mView.showAddValueErrorWithoutTitle();
+        } else {
+            mView.showAddValueError();
+        }
+    }
+
+    private boolean isAddedValueStateValid(final Integer isValueAdded) {
+        return VALUE_SAVED_SUCCESSFULLY_STATE == isValueAdded;
     }
 }

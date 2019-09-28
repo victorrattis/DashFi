@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SaveValueUseCase getSaveValueUseCase() {
         if (mSaveValueUseCase == null) {
-            mSaveValueUseCase = new SaveValueUseCase(getValuesRepository(), mLog);
+            mSaveValueUseCase = new SaveValueUseCase(getValuesRepository());
         }
         return mSaveValueUseCase;
     }
