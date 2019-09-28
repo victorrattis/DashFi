@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockCardsDataSource2 implements CardsDataSource {
-    private List<CardDetail> mCardDetails;
+    private final List<CardDetail> mCardDetails;
 
     public MockCardsDataSource2() {
         mCardDetails = new ArrayList<>();

@@ -9,7 +9,7 @@ public class UseCaseSchedulerImpl implements UseCaseScheduler {
     private static final int MAX_POOL_SIZE = 4;
     private static final int TIMEOUT = 30;
 
-    private ThreadPoolExecutor mThreadPoolExecutor;
+    private final ThreadPoolExecutor mThreadPoolExecutor;
 
     public UseCaseSchedulerImpl() {
         mThreadPoolExecutor = new ThreadPoolExecutor(

@@ -19,9 +19,9 @@ import com.vhra.dashfi.domain.model.ValueDetail;
 import java.util.List;
 
 public class ValuesFragment extends Fragment implements ValuesPresenter.View {
+    public static final String TAG = "ValuesFragment";
     private ValueItemAdpater mAdapter;
 
-    private boolean isDialogOpened = false;
     private ValuesPresenter mPresenter;
     private View mLoadingView;
 
@@ -91,16 +91,5 @@ public class ValuesFragment extends Fragment implements ValuesPresenter.View {
                 this.getContext(),
                 R.string.text_error_getting_values,
                 Toast.LENGTH_LONG).show();
-    }
-
-    private void openAddItemDialog(ValueDetail valueDetail) {
-        if (isDialogOpened || this.getContext() == null) return;
-
-        // TODO: Implement it!
-//        AddItemDialog dialog = new AddItemDialog(this.getContext());
-//        dialog.updateValueDetail(valueDetail);
-//        dialog.setOnDismissListener(dialogInterface -> isDialogOpened = false);
-//        dialog.show();
-//        isDialogOpened = true;
     }
 }

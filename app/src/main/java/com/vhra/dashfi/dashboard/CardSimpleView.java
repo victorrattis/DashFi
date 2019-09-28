@@ -11,8 +11,8 @@ import com.vhra.dashfi.CardDetail;
 import com.vhra.dashfi.R;
 
 class CardSimpleView extends CardView implements CardSimplePresenter.View {
-    private TextView mTitleText;
-    private TextView mValueText;
+    private final TextView mTitleText;
+    private final TextView mValueText;
 
     private CardSimplePresenter mPresenter;
 

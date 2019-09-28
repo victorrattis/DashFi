@@ -11,8 +11,8 @@ import java.util.List;
 public class GetValuesUseCase implements UseCase<Void, List<? extends ValueDetail>> {
     private static final String TAG = "GetValuesUseCase";
 
-    private ILog mLog;
-    private IValuesRepository mValuesRepository;
+    private final ILog mLog;
+    private final IValuesRepository mValuesRepository;
 
     public GetValuesUseCase(IValuesRepository valuesRepository, ILog log) {
         mLog = log;

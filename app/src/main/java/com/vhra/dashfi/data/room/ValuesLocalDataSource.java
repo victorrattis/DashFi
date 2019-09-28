@@ -20,11 +20,11 @@ public class ValuesLocalDataSource implements ValuesDataSource {
     private static final String DATABASE_NAME = "dashfi-db";
 
     private AppDatabase mAppDatabase;
-    private Executor mIoExecutor;
-    private ILog mLog;
+    private final Executor mIoExecutor;
+    private final ILog mLog;
 
-    private LifecycleOwner mLifecycleOwner;
-    private Handler mUiHandler;
+    private final LifecycleOwner mLifecycleOwner;
+    private final Handler mUiHandler;
 
     public ValuesLocalDataSource(
             LifecycleOwner lifecycleOwner, Context context, Executor ioExecutor, ILog log) {

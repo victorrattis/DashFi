@@ -5,7 +5,7 @@ import com.vhra.dashfi.CardDetail;
 import java.util.List;
 
 public class CardsRepository {
-    private CardsDataSource mCardsDataSource;
+    private final CardsDataSource mCardsDataSource;
 
     public CardsRepository(CardsDataSource cardsDataSource) {
         mCardsDataSource = cardsDataSource;

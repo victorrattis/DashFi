@@ -10,7 +10,7 @@ public class LabelsConverter {
 
 
     @TypeConverter
-    public String writtinStringFromList(final List<String> list) {
+    public String writingStringFromList(final List<String> list) {
         StringBuilder result = new StringBuilder();
         for (String i : list) {
             result.append(COMMA).append(i);

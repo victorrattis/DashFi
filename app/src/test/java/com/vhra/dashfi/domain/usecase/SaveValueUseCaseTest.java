@@ -25,9 +25,8 @@ public class SaveValueUseCaseTest {
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(null);
 
         ValueDetail valueDetail = new ValueDetailImpl("", 0, null);
-        saveValueUseCase.execute(valueDetail, result -> {
-            assertEquals(UNSAVED_ERROR_REPOSITORY_NULL, result.intValue());
-        });
+        saveValueUseCase.execute(valueDetail,
+                result -> assertEquals(UNSAVED_ERROR_REPOSITORY_NULL, result.intValue()));
     }
 
     @Test
@@ -35,9 +34,8 @@ public class SaveValueUseCaseTest {
         ValuesRepository valuesRepository = mock(ValuesRepository.class);
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
-        saveValueUseCase.execute(null, result -> {
-            assertEquals(UNSAVED_ERROR_VALUE_NULL_STATE, result.intValue());
-        });
+        saveValueUseCase.execute(null,
+                result -> assertEquals(UNSAVED_ERROR_VALUE_NULL_STATE, result.intValue()));
     }
 
     @Test
@@ -46,9 +44,8 @@ public class SaveValueUseCaseTest {
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
         ValueDetail valueDetail = new ValueDetailImpl("", 0, null);
-        saveValueUseCase.execute(valueDetail, result -> {
-            assertEquals(UNSAVED_ERROR_EMPTY_TITLE_STATE, result.intValue());
-        });
+        saveValueUseCase.execute(valueDetail,
+                result -> assertEquals(UNSAVED_ERROR_EMPTY_TITLE_STATE, result.intValue()));
     }
 
     @Test
@@ -63,9 +60,8 @@ public class SaveValueUseCaseTest {
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
         ValueDetail valueDetail = new ValueDetailImpl("value title", 0, null);
-        saveValueUseCase.execute(valueDetail, result -> {
-            assertEquals(VALUE_SAVED_SUCCESSFULLY_STATE, result.intValue());
-        });
+        saveValueUseCase.execute(valueDetail,
+                result -> assertEquals(VALUE_SAVED_SUCCESSFULLY_STATE, result.intValue()));
     }
 
     @Test
@@ -80,8 +76,7 @@ public class SaveValueUseCaseTest {
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
         ValueDetail valueDetail = new ValueDetailImpl("value title", 0, null);
-        saveValueUseCase.execute(valueDetail, result -> {
-            assertEquals(UNSAVED_VALUE_STATE, result.intValue());
-        });
+        saveValueUseCase.execute(valueDetail,
+                result -> assertEquals(UNSAVED_VALUE_STATE, result.intValue()));
     }
 }

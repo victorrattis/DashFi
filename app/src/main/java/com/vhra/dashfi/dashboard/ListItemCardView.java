@@ -1,6 +1,5 @@
 package com.vhra.dashfi.dashboard;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,12 +16,12 @@ import com.vhra.dashfi.R;
 import java.util.List;
 
 public class ListItemCardView extends CardView implements ListItemCardPresenter.View {
-    private TextView mTitleText;
-    private TextView mValueText;
-    private RecyclerView mItemListView;
+    private final TextView mTitleText;
+    private final TextView mValueText;
+    private final RecyclerView mItemListView;
 
     private ListItemCardPresenter mPresenter;
-    private ListItemCardAdpater mListItemCardAdpater;
+    private ListItemCardAdapter mListItemCardAdapter;
 
     private ListItemCardView(@NonNull View itemView) {
         super(itemView);
@@ -80,7 +79,7 @@ public class ListItemCardView extends CardView implements ListItemCardPresenter.
 
     @Override
     public void showItems(List<CardItem> items) {
-        mListItemCardAdpater.replaceData(items);
+        mListItemCardAdapter.replaceData(items);
     }
 
     private void initializeItemListView() {
@@ -88,8 +87,8 @@ public class ListItemCardView extends CardView implements ListItemCardPresenter.
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         mItemListView.setLayoutManager(linearLayoutManager);
 
-        mListItemCardAdpater = new ListItemCardAdpater();
-        mItemListView.setAdapter(mListItemCardAdpater);
+        mListItemCardAdapter = new ListItemCardAdapter();
+        mItemListView.setAdapter(mListItemCardAdapter);
 
         mItemListView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override

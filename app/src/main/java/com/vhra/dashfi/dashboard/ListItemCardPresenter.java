@@ -1,7 +1,6 @@
 package com.vhra.dashfi.dashboard;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.vhra.dashfi.CardDetail;
 import com.vhra.dashfi.domain.model.ValueDetail;
@@ -9,6 +8,7 @@ import com.vhra.dashfi.values.ValuesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ListItemCardPresenter {
     public interface View {
@@ -21,8 +21,8 @@ public class ListItemCardPresenter {
 
     private static final String LABEL_SCHEME = "label:";
 
-    private View mView;
-    private ValuesRepository mValuesRepository;
+    private final View mView;
+    private final ValuesRepository mValuesRepository;
 
     public ListItemCardPresenter(View view, ValuesRepository valuesRepository) {
         mView = view;
@@ -55,7 +55,7 @@ public class ListItemCardPresenter {
 
                             @Override
                             public String getValue() {
-                                return String.format("R$ %.2f", (valueDetail.getValue()));
+                                return String.format(Locale.ROOT, "R$ %.2f", (valueDetail.getValue()));
                             }
 
                             @Override
@@ -67,7 +67,6 @@ public class ListItemCardPresenter {
                     mView.showItems(result);
                 });
             } else if ("one".equals(cardItem.getType())) {
-                Log.d("devlog", "creating one: " +cardItem.getTitle());
                 mValuesRepository.sumValueForLabels(cardItem.getValue(), value -> {
                     result.add(new CardItem() {
                         @Override
@@ -77,7 +76,7 @@ public class ListItemCardPresenter {
 
                         @Override
                         public String getValue() {
-                            return String.format("R$ %.2f", (value));
+                            return String.format(Locale.ROOT, "R$ %.2f", (value));
                         }
 
                         @Override
@@ -91,16 +90,16 @@ public class ListItemCardPresenter {
         }
     }
 
-    public void onTitleViewClick() {
-
+    void onTitleViewClick() {
+        // TODO: Implement it!
     }
 
-    public void onValueViewClick() {
-
+    void onValueViewClick() {
+        // TODO: Implement it!
     }
 
     private void showValue(double value) {
-        mView.showValue(String.format("R$ %.2f", value));
+        mView.showValue(String.format(Locale.ROOT, "R$ %.2f", value));
     }
 
     private boolean hasLabelScheme(String text) {

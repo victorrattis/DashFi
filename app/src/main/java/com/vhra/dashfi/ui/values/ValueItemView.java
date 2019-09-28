@@ -12,10 +12,12 @@ import com.vhra.dashfi.R;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.utils.OnItemClickListener;
 
+import java.util.Locale;
+
 public class ValueItemView extends RecyclerView.ViewHolder {
-    private TextView mTitleText;
-    private TextView mValueText;
-    private TextView mLabelsText;
+    private final TextView mTitleText;
+    private final TextView mValueText;
+    private final TextView mLabelsText;
 
     private OnItemClickListener<ValueDetail> mOnItemClickListener;
 
@@ -46,7 +48,7 @@ public class ValueItemView extends RecyclerView.ViewHolder {
         });
 
         mTitleText.setText(valueDetail.getTitle());
-        mValueText.setText(String.format("R$ %.2f", valueDetail.getValue()));
+        mValueText.setText(String.format(Locale.ROOT, "R$ %.2f", valueDetail.getValue()));
         mLabelsText.setText(valueDetail.getLabels().toString());
     }
 }

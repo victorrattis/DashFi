@@ -4,8 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 
 public class CallbackHandler<Data> implements Callback<Data> {
-    private Callback<Data> mCallback;
-    private Handler mCallerHandler;
+    private final Callback<Data> mCallback;
+    private final Handler mCallerHandler;
 
     private CallbackHandler(Callback<Data> callback) {
         mCallback = callback;

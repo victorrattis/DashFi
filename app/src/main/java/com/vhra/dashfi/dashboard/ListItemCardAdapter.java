@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ListItemCardAdpater extends RecyclerView.Adapter<CardListItemView> {
+public class ListItemCardAdapter extends RecyclerView.Adapter<CardListItemView> {
     private List<CardItem> mCardItemList;
 
     @NonNull

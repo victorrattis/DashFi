@@ -9,7 +9,7 @@ ext.getVersionMap = { ->
         def major = versionProps['VERSION_MAJOR'].toInteger()
         def minor = versionProps['VERSION_MINOR'].toInteger()
         def buildBase = versionProps['VERSION_BUILD_BASE'].toInteger()
-        def out
+        def out = new ByteArrayOutputStream()
         exec {
             commandLine "git"
             args "rev-list", "HEAD", "--count"

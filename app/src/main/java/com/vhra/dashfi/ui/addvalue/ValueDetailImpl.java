@@ -5,10 +5,10 @@ import com.vhra.dashfi.domain.model.ValueDetail;
 import java.util.List;
 
 class ValueDetailImpl implements ValueDetail {
-    private int mId;
-    private String mTitle;
-    private double mValue;
-    private List<String> mLabels;
+    private final int mId;
+    private final String mTitle;
+    private final double mValue;
+    private final List<String> mLabels;
 
     ValueDetailImpl(int id, String title, double value, List<String> labels) {
         mId = id;

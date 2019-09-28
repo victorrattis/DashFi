@@ -4,7 +4,7 @@ import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.CallbackHandler;
 
 public class UseCaseHandler {
-    private UseCaseScheduler mUseCaseScheduler;
+    private final UseCaseScheduler mUseCaseScheduler;
 
     public UseCaseHandler(UseCaseScheduler useCaseScheduler) {
         mUseCaseScheduler = useCaseScheduler;

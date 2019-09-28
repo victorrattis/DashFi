@@ -33,9 +33,9 @@ public class AddValuePresenter {
     private static final String LABELS_DIVIDER_CHARACTER = ",";
 
     private View mView;
-    private UseCaseHandler mUseCaseHandler;
-    private UseCase<ValueDetail, Integer> mAddValueUseCase;
-    private ValueDetail mValueDetail;
+    private final UseCaseHandler mUseCaseHandler;
+    private final UseCase<ValueDetail, Integer> mAddValueUseCase;
+    private final ValueDetail mValueDetail;
 
     public AddValuePresenter(
             View view,

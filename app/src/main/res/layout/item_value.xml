@@ -58,7 +58,7 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginBottom="8dp"
-                android:textSize="9sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_value"
                 app:layout_constraintStart_toStartOf="@+id/text_title"

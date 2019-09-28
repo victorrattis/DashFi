@@ -1,6 +1,6 @@
 package com.vhra.dashfi.ui.values;
 
-import com.vhra.dashfi.MainActivity;
+import com.vhra.dashfi.ui.home.HomeActivity;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.UseCase;
 import com.vhra.dashfi.domain.UseCaseHandler;
@@ -17,16 +17,16 @@ public class ValuesPresenter {
         void showErrorGettingValues();
     }
 
-    private View mView;
-    private UseCaseHandler mUseCaseHandler;
-    private UseCase<Void, List<? extends ValueDetail>> mGetValuesUseCase;
-    private MainActivity.OpenAddValueView mOpenAddValueView;
+    private final View mView;
+    private final UseCaseHandler mUseCaseHandler;
+    private final UseCase<Void, List<? extends ValueDetail>> mGetValuesUseCase;
+    private final HomeActivity.OpenAddValueView mOpenAddValueView;
 
     public ValuesPresenter(
             View view,
             UseCaseHandler useCaseHandler,
             UseCase<Void, List<? extends ValueDetail>> getValuesUseCase,
-            MainActivity.OpenAddValueView openAddValueView) {
+            HomeActivity.OpenAddValueView openAddValueView) {
         mView = view;
         if (mView != null) view.setPresenter(this);
         mUseCaseHandler = useCaseHandler;
@@ -39,10 +39,8 @@ public class ValuesPresenter {
         mUseCaseHandler.execute(mGetValuesUseCase, null, this::showValuesOnView);
     }
 
-    public void onUpdateValueDetail(final ValueDetail valueDetail) {
-        mOpenAddValueView.open(valueDetail, result -> {
-            // TODO: close add value dialog
-        });
+    void onUpdateValueDetail(final ValueDetail valueDetail) {
+        mOpenAddValueView.open(valueDetail);
     }
 
     private void showValuesOnView(final List<? extends ValueDetail> valueDetailList) {

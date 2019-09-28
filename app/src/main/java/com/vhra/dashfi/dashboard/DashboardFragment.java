@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vhra.dashfi.MessageEvent;
 import com.vhra.dashfi.R;
 import com.vhra.dashfi.cards.CardsRepository;
-import com.vhra.dashfi.cards.MockCardsDataSource;
 import com.vhra.dashfi.cards.MockCardsDataSource2;
 import com.vhra.dashfi.values.MockValuesDataSource;
-import com.vhra.dashfi.values.MockValuesDataSource2;
 import com.vhra.dashfi.values.ValuesRepository;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public class DashboardFragment extends Fragment {
+    public static final String TAG = "DashboardFragment";
     private CardsAdapter mCardsAdapter;
 
     @Override
@@ -58,7 +57,7 @@ public class DashboardFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         EventBus.getDefault().register(this);
     }

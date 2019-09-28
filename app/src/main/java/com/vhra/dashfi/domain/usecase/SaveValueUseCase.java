@@ -21,7 +21,7 @@ public class SaveValueUseCase implements UseCase<ValueDetail, Integer> {
     public static final int UNSAVED_ERROR_REPOSITORY_NULL = -3;
     public static final int UNSAVED_VALUE_STATE = -4;
 
-    private IValuesRepository mValuesRepository;
+    private final IValuesRepository mValuesRepository;
 
     public SaveValueUseCase(IValuesRepository valuesRepository) {
         mValuesRepository = valuesRepository;

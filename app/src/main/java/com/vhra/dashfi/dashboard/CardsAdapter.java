@@ -44,12 +44,12 @@ public class CardsAdapter extends RecyclerView.Adapter<CardView> {
         return mCards != null ? mCards.size() : 0;
     }
 
-    public void replaceData(List<CardDetail> cardDetailList) {
+    void replaceData(List<CardDetail> cardDetailList) {
         mCards = cardDetailList;
         notifyDataSetChanged();
     }
 
-    public void setValuesRepository(ValuesRepository valuesRepository) {
+    void setValuesRepository(ValuesRepository valuesRepository) {
         mValuesRepository = valuesRepository;
     }
 

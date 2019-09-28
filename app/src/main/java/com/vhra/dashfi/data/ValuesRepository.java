@@ -10,8 +10,8 @@ import java.util.List;
 public class ValuesRepository implements IValuesRepository {
     private static final String TAG = "ValuesRepository";
 
-    private ILog mLog;
-    private ValuesDataSource mValuesDataSource;
+    private final ILog mLog;
+    private final ValuesDataSource mValuesDataSource;
 
     public ValuesRepository(ValuesDataSource localValueDataSource, ILog log) {
         mValuesDataSource = localValueDataSource;

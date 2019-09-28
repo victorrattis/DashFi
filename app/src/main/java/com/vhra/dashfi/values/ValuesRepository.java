@@ -12,7 +12,7 @@ import java.util.List;
 public class ValuesRepository {
     private static final String LABEL_SCHEME = "label:";
 
-    private ValuesDataSource mValuesDataSource;
+    private final ValuesDataSource mValuesDataSource;
     private static ValuesRepository sInstance;
 
     public static ValuesRepository createInstance(ValuesDataSource valuesDataSource) {
@@ -34,11 +34,8 @@ public class ValuesRepository {
 
     public void getAllValues(Callback<List<ValueDetail>> callback) {
         Handler handler = new Handler();
-        new Thread(() -> {
-            handler.post(() -> {
-                callback.onComplete(mValuesDataSource.getValues());
-            });
-        }).start();
+        new Thread(() -> handler.post(
+                () -> callback.onComplete(mValuesDataSource.getValues()))).start();
     }
 
     public void sumValueForLabels(String labelsText, Callback<Double> callback) {

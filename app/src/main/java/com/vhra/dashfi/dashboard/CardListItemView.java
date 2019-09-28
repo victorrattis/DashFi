@@ -11,23 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vhra.dashfi.R;
 
 public class CardListItemView extends RecyclerView.ViewHolder {
-    private TextView mTitleText;
-    private TextView mValueText;
+    private final  TextView mTitleText;
+    private final  TextView mValueText;
 
-    public CardListItemView(@NonNull View itemView) {
+    private CardListItemView(@NonNull View itemView) {
         super(itemView);
 
         mTitleText = itemView.findViewById(R.id.text_title);
         mValueText = itemView.findViewById(R.id.text_value);
     }
 
-    public static CardListItemView create(ViewGroup parent) {
+    static CardListItemView create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_card_item, parent, false);
         return new CardListItemView(view);
     }
 
-    public void updateValues(CardItem cardItem) {
+    void updateValues(CardItem cardItem) {
         if (cardItem == null) {
             return;
         }

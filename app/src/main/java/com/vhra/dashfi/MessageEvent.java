@@ -1,7 +1,7 @@
 package com.vhra.dashfi;
 
 public class MessageEvent {
-    private String mAction;
+    private final String mAction;
 
     public MessageEvent(String action) {
         mAction = action;
