@@ -9,6 +9,7 @@ android {
     def versionMap = getVersionMap()
 
     defaultConfig {
+        archivesBaseName = "DashFi"
         applicationId "com.vhra.dashfi"
         minSdkVersion 15
         targetSdkVersion 29
@@ -16,12 +17,14 @@ android {
         versionName versionMap.name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
