@@ -25,6 +25,7 @@ public class AddValuePresenter {
 
     private static final int NOT_SET_ITEM_ID = 0;
     private static final double DEFAULT_VALUE = 0.0;
+    private static final String STRING_EMPTY = "";
     private static final String LABELS_DIVIDER_CHARACTER = ",";
 
     private View mView;
@@ -63,16 +64,16 @@ public class AddValuePresenter {
     }
 
     private void startAddValueDialog() {
-        mView.showTitle("");
-        mView.showValue("");
-        mView.showLabels("");
+        mView.showTitle(STRING_EMPTY);
+        mView.showValue(STRING_EMPTY);
+        mView.showLabels(STRING_EMPTY);
         mView.showAddValueButton();
     }
 
     private void startUpdateValueDialog() {
         mView.showTitle(mValueDetail.getTitle());
         mView.showValue(String.valueOf(mValueDetail.getValue()));
-        mView.showLabels(TextUtils.join(",", mValueDetail.getLabels()));
+        mView.showLabels(TextUtils.join(LABELS_DIVIDER_CHARACTER, mValueDetail.getLabels()));
         mView.showSaveValueButton();
     }
 

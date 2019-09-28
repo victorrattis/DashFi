@@ -31,7 +31,7 @@ public class AddItemDialog extends Dialog implements AddValuePresenter.View {
         mValueEditText = this.findViewById(R.id.edit_value);
         mLabelsEditText = this.findViewById(R.id.edit_labels);
 
-        mButton = this.findViewById(R.id.button_add_item);
+        mButton = this.findViewById(R.id.button_save);
         if (mButton != null)
             mButton.setOnClickListener(view ->
                 mPresenter.onSaveValueClick(

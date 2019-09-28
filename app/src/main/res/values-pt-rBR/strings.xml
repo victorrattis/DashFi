@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Configurações</string>
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Fechar</string>
+    <string name="text_value_added_successfully">Valor adicionado</string>
+    <string name="title_add_value">Adicionar Valor</string>
+    <string name="title_all_values">Todos Valores</string>
+    <string name="text_error_during_to_add_value">Error para adicionar o valor!</string>
+    <string name="text_error_getting_values">Error para carregar os valores</string>
+    <string name="text_add_value_title">Adicionar</string>
+    <string name="text_save_value_title">Salvar</string>
+    <string name="text_add_value_dialog_title">Valor</string>
+    <string name="text_value_title_field">Título</string>
+    <string name="text_label_title_field">Rétulos</string>
+</resources>
