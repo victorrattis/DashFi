@@ -7,7 +7,7 @@ import android.os.Looper;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.room.Room;
 
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.data.ValuesDataSource;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;

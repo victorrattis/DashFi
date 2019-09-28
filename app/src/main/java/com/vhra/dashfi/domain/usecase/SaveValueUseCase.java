@@ -2,8 +2,8 @@ package com.vhra.dashfi.domain.usecase;
 
 import androidx.annotation.IntDef;
 
-import com.vhra.dashfi.ValueDetail;
-import com.vhra.dashfi.data.ValuesRepository;
+import com.vhra.dashfi.domain.model.IValuesRepository;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.UseCase;
 import com.vhra.dashfi.utils.Callback;
 
@@ -21,9 +21,9 @@ public class SaveValueUseCase implements UseCase<ValueDetail, Integer> {
     public static final int UNSAVED_ERROR_REPOSITORY_NULL = -3;
     public static final int UNSAVED_VALUE_STATE = -4;
 
-    private ValuesRepository mValuesRepository;
+    private IValuesRepository mValuesRepository;
 
-    public SaveValueUseCase(ValuesRepository valuesRepository) {
+    public SaveValueUseCase(IValuesRepository valuesRepository) {
         mValuesRepository = valuesRepository;
     }
 

@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vhra.dashfi.R;
-import com.vhra.dashfi.ValueDetail;
-import com.vhra.dashfi.ui.addvalue.AddItemDialog;
-import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
+import com.vhra.dashfi.domain.model.ValueDetail;
 
 import java.util.List;
 

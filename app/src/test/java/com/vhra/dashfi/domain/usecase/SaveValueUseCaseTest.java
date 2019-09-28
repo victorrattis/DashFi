@@ -1,6 +1,6 @@
 package com.vhra.dashfi.domain.usecase;
 
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.ValueDetailImpl;
 import com.vhra.dashfi.data.ValuesRepository;
 import com.vhra.dashfi.utils.Callback;

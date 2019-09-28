@@ -1,7 +1,7 @@
 package com.vhra.dashfi.domain.usecase;
 
-import com.vhra.dashfi.ValueDetail;
-import com.vhra.dashfi.data.ValuesRepository;
+import com.vhra.dashfi.domain.model.IValuesRepository;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.UseCase;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
@@ -12,9 +12,9 @@ public class GetValuesUseCase implements UseCase<Void, List<? extends ValueDetai
     private static final String TAG = "GetValuesUseCase";
 
     private ILog mLog;
-    private ValuesRepository mValuesRepository;
+    private IValuesRepository mValuesRepository;
 
-    public GetValuesUseCase(ValuesRepository valuesRepository, ILog log) {
+    public GetValuesUseCase(IValuesRepository valuesRepository, ILog log) {
         mLog = log;
         mValuesRepository = valuesRepository;
     }

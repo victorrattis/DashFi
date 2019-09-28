@@ -20,6 +20,7 @@ import com.vhra.dashfi.domain.UseCaseHandler;
 import com.vhra.dashfi.domain.UseCaseSchedulerImpl;
 import com.vhra.dashfi.domain.usecase.GetValuesUseCase;
 import com.vhra.dashfi.domain.usecase.SaveValueUseCase;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.ui.addvalue.AddItemDialog;
 import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
 import com.vhra.dashfi.ui.values.ValuesFragment;

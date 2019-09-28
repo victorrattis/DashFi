@@ -1,5 +1,7 @@
 package com.vhra.dashfi;
 
+import com.vhra.dashfi.domain.model.ValueDetail;
+
 import java.util.Arrays;
 import java.util.List;
 

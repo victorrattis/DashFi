@@ -1,6 +1,6 @@
 package com.vhra.dashfi.data;
 
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.utils.Callback;
 
 import java.util.List;

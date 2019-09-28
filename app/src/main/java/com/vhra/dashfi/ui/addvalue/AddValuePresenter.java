@@ -2,7 +2,7 @@ package com.vhra.dashfi.ui.addvalue;
 
 import android.text.TextUtils;
 
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.UseCase;
 import com.vhra.dashfi.domain.UseCaseHandler;
 

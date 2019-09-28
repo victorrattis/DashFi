@@ -1,10 +1,9 @@
 package com.vhra.dashfi.ui.values;
 
 import com.vhra.dashfi.MainActivity;
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.UseCase;
 import com.vhra.dashfi.domain.UseCaseHandler;
-import com.vhra.dashfi.utils.Callback;
 
 import java.util.List;
 

@@ -1,12 +1,13 @@
 package com.vhra.dashfi.data;
 
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.IValuesRepository;
+import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
 
 import java.util.List;
 
-public class ValuesRepository {
+public class ValuesRepository implements IValuesRepository {
     private static final String TAG = "ValuesRepository";
 
     private ILog mLog;
@@ -17,6 +18,7 @@ public class ValuesRepository {
         mLog = log;
     }
 
+    @Override
     public void saveValue(ValueDetail valueDetail, Callback<Boolean> callback) {
         if (mValuesDataSource == null) {
             mLog.e(TAG, "Values Data Source is null!");
@@ -28,6 +30,7 @@ public class ValuesRepository {
                 savedValueDetail -> callback.onComplete(savedValueDetail != null));
     }
 
+    @Override
     public void getAllValues(Callback<List<? extends ValueDetail>> callback) {
         if (mValuesDataSource == null) {
             mLog.e(TAG, "Values Data Source is null!");

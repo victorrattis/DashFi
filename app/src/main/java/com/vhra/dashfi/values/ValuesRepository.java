@@ -3,7 +3,7 @@ package com.vhra.dashfi.values;
 import android.os.Handler;
 
 import com.vhra.dashfi.utils.Callback;
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 
 import java.util.ArrayList;
 import java.util.Arrays;

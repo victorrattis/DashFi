@@ -1,6 +1,6 @@
 package com.vhra.dashfi.ui.addvalue;
 
-import com.vhra.dashfi.ValueDetail;
+import com.vhra.dashfi.domain.model.ValueDetail;
 
 import java.util.List;
 

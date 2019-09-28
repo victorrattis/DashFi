@@ -1,4 +1,4 @@
-package com.vhra.dashfi;
+package com.vhra.dashfi.domain.model;
 
 import java.util.List;
 
