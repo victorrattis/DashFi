@@ -16,10 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.vhra.dashfi.R;
 import com.vhra.dashfi.data.cards.CardsRepository;
 import com.vhra.dashfi.data.cards.MockCardsDataSource2;
-import com.vhra.dashfi.data.value.ValuesRepository;
-import com.vhra.dashfi.data.value.room.ValuesLocalDataSource;
 import com.vhra.dashfi.domain.UseCaseHandler;
-import com.vhra.dashfi.domain.UseCaseSchedulerImpl;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.usecase.GetCardsUseCase;
 import com.vhra.dashfi.domain.usecase.GetValuesUseCase;
@@ -31,10 +28,11 @@ import com.vhra.dashfi.ui.dashboard.DashboardPresenter;
 import com.vhra.dashfi.ui.values.ValuesFragment;
 import com.vhra.dashfi.ui.values.ValuesPresenter;
 import com.vhra.dashfi.utils.Callback;
-import com.vhra.dashfi.utils.DiskIOThreadExecutor;
 import com.vhra.dashfi.utils.ILog;
 import com.vhra.dashfi.utils.LogUtils;
 
+import static com.vhra.dashfi.DashFiApplication.getUseCaseHandler;
+import static com.vhra.dashfi.DashFiApplication.getValuesRepository;
 import static com.vhra.dashfi.utils.FragmentUtils.isFragmentInflated;
 import static com.vhra.dashfi.utils.FragmentUtils.popBackStackTo;
 import static com.vhra.dashfi.utils.FragmentUtils.replaceFragment;
@@ -49,7 +47,6 @@ public class HomeActivity extends AppCompatActivity implements
 
     private ILog mLog;
     private UseCaseHandler mUseCaseHandler;
-    private ValuesRepository mValuesRepository;
     private SaveValueUseCase mSaveValueUseCase;
     private GetValuesUseCase mGetValuesUseCase;
 
@@ -64,7 +61,7 @@ public class HomeActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         mLog = new LogUtils();
-        mUseCaseHandler = new UseCaseHandler(new UseCaseSchedulerImpl());
+        mUseCaseHandler = getUseCaseHandler(this);
         initializeLateralNavigation();
 
         new HomePresenter(this);
@@ -210,34 +207,19 @@ public class HomeActivity extends AppCompatActivity implements
 
     private SaveValueUseCase getSaveValueUseCase() {
         if (mSaveValueUseCase == null) {
-            mSaveValueUseCase = new SaveValueUseCase(getValuesRepository());
+            mSaveValueUseCase = new SaveValueUseCase(getValuesRepository(this));
         }
         return mSaveValueUseCase;
     }
 
     private GetValuesUseCase getGetValuesUseCase() {
         if (mGetValuesUseCase == null) {
-            mGetValuesUseCase = new GetValuesUseCase(getValuesRepository(), mLog);
+            mGetValuesUseCase = new GetValuesUseCase(getValuesRepository(this), mLog);
         }
         return mGetValuesUseCase;
     }
 
     private GetCardsUseCase getGetCardsUseCase() {
         return new GetCardsUseCase(new CardsRepository(new MockCardsDataSource2()), mLog);
-    }
-
-    private ValuesRepository getValuesRepository() {
-        if (mValuesRepository == null) {
-            mValuesRepository = createValuesRepository();
-        }
-        return mValuesRepository;
-    }
-
-    private ValuesRepository createValuesRepository() {
-        DiskIOThreadExecutor diskIOThreadExecutor = new DiskIOThreadExecutor();
-        ValuesLocalDataSource valuesLocalDataSource = new ValuesLocalDataSource(
-                this, this, diskIOThreadExecutor, mLog);
-
-        return new ValuesRepository(valuesLocalDataSource, mLog);
     }
 }

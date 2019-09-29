@@ -1,6 +1,6 @@
 package com.vhra.dashfi.domain.model;
 
-import com.vhra.dashfi.ui.dashboard.card.CardItem;
+import com.vhra.dashfi.ui.dashboard.card.list.CardItem;
 
 import java.util.List;
 

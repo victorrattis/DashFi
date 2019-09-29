@@ -1,7 +1,7 @@
 package com.vhra.dashfi.data.cards;
 
 import com.vhra.dashfi.domain.model.CardDetail;
-import com.vhra.dashfi.ui.dashboard.card.CardItem;
+import com.vhra.dashfi.ui.dashboard.card.list.CardItem;
 import com.vhra.dashfi.utils.Callback;
 
 import java.util.ArrayList;
@@ -13,11 +13,14 @@ public class MockCardsDataSource2 implements CardsDataSource {
     public MockCardsDataSource2() {
         mCardDetails = new ArrayList<>();
 
-        mCardDetails.add(createCardDetail(
-                "Saldo de Agosto/2019", "label:agosto,receita,2019-agosto,gastos,2019", 0, null));
+//        mCardDetails.add(createCardDetail(
+//                "Saldo de Agosto/2019", "label:agosto,receita,2019-agosto,gastos,2019", 0, null));
 
         mCardDetails.add(createCardDetail(
                 "Receita de Agosto/2019", "label:agosto,receita,2019", 0, null));
+
+        mCardDetails.add(createCardDetail(
+                "Gastos de Agosto/2019", "label:gastos", 0, null));
 
         List<CardItem> cardItems = new ArrayList<>();
         cardItems.add(createCardItem("Mastercard Free", "label:agosto,gastos,mastercard,2019", "one"));

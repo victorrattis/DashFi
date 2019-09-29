@@ -1,7 +1,7 @@
 package com.vhra.dashfi.data.cards;
 
 import com.vhra.dashfi.domain.model.CardDetail;
-import com.vhra.dashfi.ui.dashboard.card.CardItem;
+import com.vhra.dashfi.ui.dashboard.card.list.CardItem;
 import com.vhra.dashfi.utils.Callback;
 
 import java.util.ArrayList;

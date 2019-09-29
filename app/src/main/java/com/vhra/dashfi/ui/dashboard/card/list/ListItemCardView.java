@@ -1,4 +1,4 @@
-package com.vhra.dashfi.ui.dashboard.card;
+package com.vhra.dashfi.ui.dashboard.card.list;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.R;
+import com.vhra.dashfi.ui.dashboard.card.CardView;
 
 import java.util.List;
 
-public class ListItemCardView extends CardView implements ListItemCardPresenter.View {
+public class ListItemCardView extends CardView
+        implements ListItemCardPresenter.View, View.OnClickListener {
     private final TextView mTitleText;
     private final TextView mValueText;
     private final RecyclerView mItemListView;
@@ -33,7 +35,7 @@ public class ListItemCardView extends CardView implements ListItemCardPresenter.
         initializeItemListView();
     }
 
-    static ListItemCardView create(ViewGroup parent) {
+    public static ListItemCardView create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_list_item_card, parent, false);
         return new ListItemCardView(view);
@@ -46,14 +48,8 @@ public class ListItemCardView extends CardView implements ListItemCardPresenter.
         }
 
         if (mPresenter != null) mPresenter.init(cardDetail);
-
-        mTitleText.setOnClickListener((view) -> {
-            if (mPresenter != null) mPresenter.onTitleViewClick();
-        });
-
-        mValueText.setOnClickListener((view) -> {
-            if (mPresenter != null) mPresenter.onValueViewClick();
-        });
+        mTitleText.setOnClickListener(this);
+        mValueText.setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +76,18 @@ public class ListItemCardView extends CardView implements ListItemCardPresenter.
     @Override
     public void showItems(List<CardItem> items) {
         mListItemCardAdapter.replaceData(items);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.text_title:
+                mPresenter.onTitleViewClick();
+                break;
+            case R.id.text_value:
+                mPresenter.onValueViewClick();
+                break;
+        }
     }
 
     private void initializeItemListView() {

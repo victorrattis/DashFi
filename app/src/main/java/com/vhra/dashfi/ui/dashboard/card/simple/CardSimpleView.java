@@ -1,4 +1,4 @@
-package com.vhra.dashfi.ui.dashboard.card;
+package com.vhra.dashfi.ui.dashboard.card.simple;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,21 +9,23 @@ import androidx.annotation.NonNull;
 
 import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.R;
+import com.vhra.dashfi.ui.dashboard.card.CardView;
 
-class CardSimpleView extends CardView implements CardSimplePresenter.View {
+public class CardSimpleView extends CardView
+        implements CardSimplePresenter.View, View.OnClickListener {
     private final TextView mTitleText;
     private final TextView mValueText;
 
     private CardSimplePresenter mPresenter;
 
-    protected CardSimpleView(@NonNull View itemView) {
+    private CardSimpleView(@NonNull View itemView) {
         super(itemView);
 
         mTitleText = itemView.findViewById(R.id.text_title);
         mValueText = itemView.findViewById(R.id.text_value);
     }
 
-    static CardSimpleView create(ViewGroup parent) {
+    public static CardSimpleView create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_card, parent, false);
         return new CardSimpleView(view);
@@ -36,14 +38,8 @@ class CardSimpleView extends CardView implements CardSimplePresenter.View {
         }
 
         if (mPresenter != null) mPresenter.init(cardDetail);
-
-        mTitleText.setOnClickListener((view) -> {
-            if (mPresenter != null) mPresenter.onTitleViewClick();
-        });
-
-        mValueText.setOnClickListener((view) -> {
-            if (mPresenter != null) mPresenter.onValueViewClick();
-        });
+        mTitleText.setOnClickListener(this);
+        mValueText.setOnClickListener(this);
     }
 
     @Override
@@ -59,5 +55,19 @@ class CardSimpleView extends CardView implements CardSimplePresenter.View {
     @Override
     public void showValue(String value) {
         mValueText.setText(value);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (mPresenter == null) return;
+
+        switch (view.getId()) {
+            case R.id.text_title:
+                mPresenter.onTitleViewClick();
+                break;
+            case R.id.text_value:
+                mPresenter.onValueViewClick();
+                break;
+        }
     }
 }

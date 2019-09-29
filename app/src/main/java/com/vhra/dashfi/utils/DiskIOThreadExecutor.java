@@ -9,7 +9,7 @@ public class DiskIOThreadExecutor  implements Executor {
     private final Executor mDiskIO;
 
     public DiskIOThreadExecutor() {
-        mDiskIO = Executors.newFixedThreadPool(4);
+        mDiskIO = Executors.newFixedThreadPool(1);
     }
 
     @Override

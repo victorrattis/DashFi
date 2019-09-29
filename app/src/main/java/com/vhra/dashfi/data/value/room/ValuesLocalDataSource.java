@@ -23,18 +23,17 @@ public class ValuesLocalDataSource implements ValuesDataSource {
     private final Executor mIoExecutor;
     private final ILog mLog;
 
-    private final LifecycleOwner mLifecycleOwner;
     private final Handler mUiHandler;
 
-    public ValuesLocalDataSource(
-            LifecycleOwner lifecycleOwner, Context context, Executor ioExecutor, ILog log) {
+    public ValuesLocalDataSource(Context context, Executor ioExecutor, ILog log) {
         mLog = log;
         mIoExecutor = ioExecutor;
         final Context appContext = context.getApplicationContext();
-        ioExecutor.execute(() -> initDatabase(appContext));
+        // Currently, IOExecutor is using a thread due to concurrent problems which the
+        // mAppDataBase is not loaded before of using it.
+        mIoExecutor.execute(() -> initDatabase(appContext));
 
-        // TODO: Change it
-        mLifecycleOwner = lifecycleOwner;
+
         mUiHandler = new Handler(Looper.getMainLooper());
     }
 
@@ -54,11 +53,19 @@ public class ValuesLocalDataSource implements ValuesDataSource {
 
     @Override
     public void getAllValues(Callback<List<? extends ValueDetail>> callback) {
+        mIoExecutor.execute(() -> {
+            callback.onComplete(mAppDatabase.valueDao().getAllValues());
+        });
+    }
+
+    @Override
+    public void getLiveAllValues(
+            LifecycleOwner lifecycleOwner, Callback<List<? extends ValueDetail>> callback) {
         mUiHandler.post(() -> {
             try {
                 mAppDatabase.valueDao()
-                    .getLiveAllValues()
-                    .observe(mLifecycleOwner, callback::onComplete);
+                        .getLiveAllValues()
+                        .observe(lifecycleOwner, callback::onComplete);
             } catch (Exception e) {
                 mLog.e(TAG, "Error get all values", e);
                 callback.onComplete(null);

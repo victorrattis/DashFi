@@ -1,5 +1,7 @@
 package com.vhra.dashfi.data.value;
 
+import androidx.lifecycle.LifecycleOwner;
+
 import com.vhra.dashfi.domain.model.IValuesRepository;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.utils.Callback;
@@ -39,5 +41,17 @@ public class ValuesRepository implements IValuesRepository {
         }
 
         mValuesDataSource.getAllValues(callback);
+    }
+
+    @Override
+    public void getLiveAllValues(
+            LifecycleOwner lifecycleOwner, Callback<List<? extends ValueDetail>> callback) {
+        if (mValuesDataSource == null) {
+            mLog.e(TAG, "Values Data Source is null!");
+            callback.onComplete(null);
+            return;
+        }
+
+        mValuesDataSource.getLiveAllValues(lifecycleOwner, callback);
     }
 }

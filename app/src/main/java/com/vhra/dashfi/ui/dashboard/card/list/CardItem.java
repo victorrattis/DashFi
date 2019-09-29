@@ -1,4 +1,4 @@
-package com.vhra.dashfi.ui.dashboard.card;
+package com.vhra.dashfi.ui.dashboard.card.list;
 
 public interface CardItem {
     String getTitle();

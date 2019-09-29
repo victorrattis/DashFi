@@ -1,4 +1,4 @@
-package com.vhra.dashfi.ui.dashboard.card;
+package com.vhra.dashfi.ui.dashboard.card.list;
 
 import android.text.TextUtils;
 
