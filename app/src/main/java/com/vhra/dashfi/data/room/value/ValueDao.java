@@ -1,4 +1,4 @@
-package com.vhra.dashfi.data.value.room;
+package com.vhra.dashfi.data.room.value;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface ValueDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertUsers(ValueEntity valueEntity);
+    void insertValue(ValueEntity... valueEntity);
 
     @Query("SELECT * FROM value")
     List<ValueEntity> getAllValues();

@@ -1,14 +1,14 @@
-package com.vhra.dashfi.data.value.room;
+package com.vhra.dashfi.data.value;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
 import androidx.lifecycle.LifecycleOwner;
-import androidx.room.Room;
 
+import com.vhra.dashfi.data.room.AppDatabase;
+import com.vhra.dashfi.data.room.value.ValueEntity;
 import com.vhra.dashfi.domain.model.ValueDetail;
-import com.vhra.dashfi.data.value.ValuesDataSource;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
 
@@ -17,7 +17,6 @@ import java.util.concurrent.Executor;
 
 public class ValuesLocalDataSource implements ValuesDataSource {
     private static final String TAG = "ValuesLocalDataSource";
-    private static final String DATABASE_NAME = "dashfi-db";
 
     private AppDatabase mAppDatabase;
     private final Executor mIoExecutor;
@@ -28,13 +27,12 @@ public class ValuesLocalDataSource implements ValuesDataSource {
     public ValuesLocalDataSource(Context context, Executor ioExecutor, ILog log) {
         mLog = log;
         mIoExecutor = ioExecutor;
-        final Context appContext = context.getApplicationContext();
+        mUiHandler = new Handler(Looper.getMainLooper());
+
         // Currently, IOExecutor is using a thread due to concurrent problems which the
         // mAppDataBase is not loaded before of using it.
-        mIoExecutor.execute(() -> initDatabase(appContext));
-
-
-        mUiHandler = new Handler(Looper.getMainLooper());
+        final Context appContext = context.getApplicationContext();
+        mIoExecutor.execute(() -> mAppDatabase = AppDatabase.getInstance(appContext));
     }
 
     @Override
@@ -42,7 +40,7 @@ public class ValuesLocalDataSource implements ValuesDataSource {
         mIoExecutor.execute(() -> {
             try {
                 ValueEntity valueEntity = convertToValueEntity(valueDetail);
-                mAppDatabase.valueDao().insertUsers(valueEntity);
+                mAppDatabase.valueDao().insertValue(valueEntity);
                 callback.onComplete(valueEntity);
             } catch (Exception e) {
                 mLog.e(TAG, "Error saving value");
@@ -53,9 +51,7 @@ public class ValuesLocalDataSource implements ValuesDataSource {
 
     @Override
     public void getAllValues(Callback<List<? extends ValueDetail>> callback) {
-        mIoExecutor.execute(() -> {
-            callback.onComplete(mAppDatabase.valueDao().getAllValues());
-        });
+        mIoExecutor.execute(() -> callback.onComplete(mAppDatabase.valueDao().getAllValues()));
     }
 
     @Override
@@ -79,11 +75,5 @@ public class ValuesLocalDataSource implements ValuesDataSource {
                 valueDetail.getTitle(),
                 valueDetail.getValue(),
                 valueDetail.getLabels());
-    }
-
-    private void initDatabase(Context context) {
-        mAppDatabase = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
-                .allowMainThreadQueries().build();
-        mLog.d(TAG, "initialize Room database!");
     }
 }

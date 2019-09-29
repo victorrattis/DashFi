@@ -1,4 +1,4 @@
-package com.vhra.dashfi.data.value.room;
+package com.vhra.dashfi.data.room.value;
 
 import androidx.room.TypeConverter;
 

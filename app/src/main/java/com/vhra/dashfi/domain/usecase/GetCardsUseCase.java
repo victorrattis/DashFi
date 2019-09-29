@@ -27,6 +27,6 @@ public class GetCardsUseCase implements UseCase<Void, List<? extends CardDetail>
             return;
         }
 
-        mCardsRepository.getCards(callback::onComplete);
+        mCardsRepository.getCards(callback);
     }
 }

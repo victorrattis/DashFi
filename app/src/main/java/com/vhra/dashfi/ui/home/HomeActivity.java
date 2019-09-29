@@ -14,8 +14,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.vhra.dashfi.R;
-import com.vhra.dashfi.data.cards.CardsRepository;
-import com.vhra.dashfi.data.cards.MockCardsDataSource2;
 import com.vhra.dashfi.domain.UseCaseHandler;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.usecase.GetCardsUseCase;
@@ -31,6 +29,8 @@ import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
 import com.vhra.dashfi.utils.LogUtils;
 
+import static com.vhra.dashfi.DashFiApplication.getCardsRepository;
+import static com.vhra.dashfi.DashFiApplication.getLog;
 import static com.vhra.dashfi.DashFiApplication.getUseCaseHandler;
 import static com.vhra.dashfi.DashFiApplication.getValuesRepository;
 import static com.vhra.dashfi.utils.FragmentUtils.isFragmentInflated;
@@ -188,7 +188,7 @@ public class HomeActivity extends AppCompatActivity implements
         new DashboardPresenter(
                 dashboardFragment,
                 mUseCaseHandler,
-                getGetCardsUseCase());
+                new GetCardsUseCase(getCardsRepository(this), getLog()));
         return dashboardFragment;
     }
 
@@ -217,9 +217,5 @@ public class HomeActivity extends AppCompatActivity implements
             mGetValuesUseCase = new GetValuesUseCase(getValuesRepository(this), mLog);
         }
         return mGetValuesUseCase;
-    }
-
-    private GetCardsUseCase getGetCardsUseCase() {
-        return new GetCardsUseCase(new CardsRepository(new MockCardsDataSource2()), mLog);
     }
 }

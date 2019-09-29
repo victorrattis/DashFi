@@ -14,11 +14,20 @@ public class CardsRepository implements ICardsRepository {
     }
 
     @Override
-    public void getCards(Callback<List<CardDetail>> callback) {
+    public void getCards(Callback<List<? extends CardDetail>> callback) {
         if (mCardsDataSource != null) {
             mCardsDataSource.getCards(callback);
         } else {
             callback.onComplete(null);
+        }
+    }
+
+    @Override
+    public void saveCard(CardDetail cardDetail, Callback<Boolean> callback) {
+        if (mCardsDataSource != null) {
+            mCardsDataSource.saveCard(cardDetail, callback);
+        } else {
+            callback.onComplete(false);
         }
     }
 }

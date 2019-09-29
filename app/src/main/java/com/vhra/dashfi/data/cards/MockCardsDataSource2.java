@@ -57,13 +57,24 @@ public class MockCardsDataSource2 implements CardsDataSource {
     }
 
     @Override
-    public void getCards(Callback<List<CardDetail>> callback) {
+    public void getCards(Callback<List<? extends CardDetail>> callback) {
         callback.onComplete(mCardDetails);
+    }
+
+    @Override
+    public void saveCard(CardDetail cardDetail, Callback<Boolean> callback) {
+        mCardDetails.add(cardDetail);
+        callback.onComplete(true);
     }
 
     private CardDetail createCardDetail(
             String title, String value, int type, List<CardItem> cardItemList) {
         return new CardDetail() {
+            @Override
+            public int getId() {
+                return 0;
+            }
+
             @Override
             public String getTitle() {
                 return title;

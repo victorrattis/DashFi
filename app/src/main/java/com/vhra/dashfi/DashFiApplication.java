@@ -3,10 +3,13 @@ package com.vhra.dashfi;
 import android.app.Application;
 import android.content.Context;
 
+import com.vhra.dashfi.data.cards.CardsLocalDataSource;
+import com.vhra.dashfi.data.cards.CardsRepository;
+import com.vhra.dashfi.data.value.ValuesLocalDataSource;
 import com.vhra.dashfi.data.value.ValuesRepository;
-import com.vhra.dashfi.data.value.room.ValuesLocalDataSource;
 import com.vhra.dashfi.domain.UseCaseHandler;
 import com.vhra.dashfi.domain.UseCaseSchedulerImpl;
+import com.vhra.dashfi.domain.model.ICardsRepository;
 import com.vhra.dashfi.domain.model.IValuesRepository;
 import com.vhra.dashfi.utils.DiskIOThreadExecutor;
 import com.vhra.dashfi.utils.ILog;
@@ -17,6 +20,7 @@ public class DashFiApplication extends Application {
     private ILog mLog;
     private UseCaseHandler mUseCaseHandler = null;
     private IValuesRepository mValuesRepository = null;
+    private CardsRepository mCardsRepository = null;
 
     public static DashFiApplication getDashFiApplication(final Context context) {
         try {
@@ -37,6 +41,11 @@ public class DashFiApplication extends Application {
         return application != null ? application.getValuesRepository() : null;
     }
 
+    public static ICardsRepository getCardsRepository(final Context context) {
+        DashFiApplication application = getDashFiApplication(context);
+        return application != null ? application.getCardsRepository() : null;
+    }
+
     public static ILog getLog() {
         return new LogUtils();
     }
@@ -55,11 +64,23 @@ public class DashFiApplication extends Application {
         return mValuesRepository;
     }
 
+    private CardsRepository getCardsRepository() {
+        if (mCardsRepository == null) {
+            mCardsRepository = createGetCardsUseCase();
+        }
+        return mCardsRepository;
+    }
+
     private IValuesRepository createValuesRepository() {
         DiskIOThreadExecutor diskIOThreadExecutor = new DiskIOThreadExecutor();
         ValuesLocalDataSource valuesLocalDataSource = new ValuesLocalDataSource(
                 this, diskIOThreadExecutor, getLog());
 
         return new ValuesRepository(valuesLocalDataSource, getLog());
+    }
+
+    private CardsRepository createGetCardsUseCase() {
+        return new CardsRepository(
+                new CardsLocalDataSource(this, new DiskIOThreadExecutor(), getLog()));
     }
 }
