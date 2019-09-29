@@ -1,4 +1,4 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vhra.dashfi.R;
 
-public class CardListItemView extends RecyclerView.ViewHolder {
-    private final  TextView mTitleText;
-    private final  TextView mValueText;
+class CardListItemView extends RecyclerView.ViewHolder {
+    private final TextView mTitleText;
+    private final TextView mValueText;
 
     private CardListItemView(@NonNull View itemView) {
         super(itemView);

@@ -1,4 +1,4 @@
-package com.vhra.dashfi.data.room;
+package com.vhra.dashfi.data.value.room;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.room.Room;
 
 import com.vhra.dashfi.domain.model.ValueDetail;
-import com.vhra.dashfi.data.ValuesDataSource;
+import com.vhra.dashfi.data.value.ValuesDataSource;
 import com.vhra.dashfi.utils.Callback;
 import com.vhra.dashfi.utils.ILog;
 

@@ -1,4 +1,4 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
 import android.view.ViewGroup;
 

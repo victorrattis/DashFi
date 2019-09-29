@@ -1,4 +1,4 @@
-package com.vhra.dashfi.data;
+package com.vhra.dashfi.data.value;
 
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.utils.Callback;

@@ -1,18 +1,22 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vhra.dashfi.CardDetail;
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.values.ValuesRepository;
 
 import java.util.List;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardView> {
-    private List<CardDetail> mCards;
+    private List<? extends CardDetail> mCards;
     private ValuesRepository mValuesRepository;
+
+    public CardsAdapter(final ValuesRepository valuesRepository) {
+        mValuesRepository = valuesRepository;
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -23,6 +27,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardView> {
     @NonNull
     @Override
     public CardView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // TODO: Factory of Cards
         if (viewType == 1) {
             ListItemCardView view = ListItemCardView.create(parent);
             new ListItemCardPresenter(view, mValuesRepository);
@@ -34,6 +39,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardView> {
         new CardSimplePresenter(cardSimpleView, mValuesRepository);
         return cardSimpleView;
     }
+
     @Override
     public void onBindViewHolder(@NonNull CardView holder, int position) {
         holder.updateValues(getItem(position));
@@ -44,13 +50,9 @@ public class CardsAdapter extends RecyclerView.Adapter<CardView> {
         return mCards != null ? mCards.size() : 0;
     }
 
-    void replaceData(List<CardDetail> cardDetailList) {
+    public void replaceData(List<? extends CardDetail> cardDetailList) {
         mCards = cardDetailList;
         notifyDataSetChanged();
-    }
-
-    void setValuesRepository(ValuesRepository valuesRepository) {
-        mValuesRepository = valuesRepository;
     }
 
     private CardDetail getItem(int position) {

@@ -1,4 +1,4 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vhra.dashfi.CardDetail;
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.R;
 
 import java.util.List;

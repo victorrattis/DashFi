@@ -14,16 +14,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.vhra.dashfi.R;
-import com.vhra.dashfi.dashboard.DashboardFragment;
-import com.vhra.dashfi.data.ValuesRepository;
-import com.vhra.dashfi.data.room.ValuesLocalDataSource;
+import com.vhra.dashfi.data.cards.CardsRepository;
+import com.vhra.dashfi.data.cards.MockCardsDataSource2;
+import com.vhra.dashfi.data.value.ValuesRepository;
+import com.vhra.dashfi.data.value.room.ValuesLocalDataSource;
 import com.vhra.dashfi.domain.UseCaseHandler;
 import com.vhra.dashfi.domain.UseCaseSchedulerImpl;
 import com.vhra.dashfi.domain.model.ValueDetail;
+import com.vhra.dashfi.domain.usecase.GetCardsUseCase;
 import com.vhra.dashfi.domain.usecase.GetValuesUseCase;
 import com.vhra.dashfi.domain.usecase.SaveValueUseCase;
 import com.vhra.dashfi.ui.addvalue.AddItemDialog;
 import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
+import com.vhra.dashfi.ui.dashboard.DashboardFragment;
+import com.vhra.dashfi.ui.dashboard.DashboardPresenter;
 import com.vhra.dashfi.ui.values.ValuesFragment;
 import com.vhra.dashfi.ui.values.ValuesPresenter;
 import com.vhra.dashfi.utils.Callback;
@@ -40,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements
     public interface OpenAddValueView {
         void open(ValueDetail valueDetail);
     }
+
     private static final String TAG = "HomeActivity";
 
     private ILog mLog;
@@ -92,6 +97,8 @@ public class HomeActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    // NavigationView.OnNavigationItemSelectedListener implementation
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -108,6 +115,8 @@ public class HomeActivity extends AppCompatActivity implements
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    // HomePresenter.View implementations
 
     @Override
     public void setPresenter(HomePresenter presenter) {
@@ -178,7 +187,12 @@ public class HomeActivity extends AppCompatActivity implements
     }
 
     private DashboardFragment createDashBoardFragment() {
-        return new DashboardFragment();
+        DashboardFragment dashboardFragment = new DashboardFragment();
+        new DashboardPresenter(
+                dashboardFragment,
+                mUseCaseHandler,
+                getGetCardsUseCase());
+        return dashboardFragment;
     }
 
     private AddItemDialog createAddItemDialog(
@@ -206,6 +220,10 @@ public class HomeActivity extends AppCompatActivity implements
             mGetValuesUseCase = new GetValuesUseCase(getValuesRepository(), mLog);
         }
         return mGetValuesUseCase;
+    }
+
+    private GetCardsUseCase getGetCardsUseCase() {
+        return new GetCardsUseCase(new CardsRepository(new MockCardsDataSource2()), mLog);
     }
 
     private ValuesRepository getValuesRepository() {

@@ -1,7 +1,8 @@
-package com.vhra.dashfi.cards;
+package com.vhra.dashfi.data.cards;
 
-import com.vhra.dashfi.CardDetail;
-import com.vhra.dashfi.dashboard.CardItem;
+import com.vhra.dashfi.domain.model.CardDetail;
+import com.vhra.dashfi.ui.dashboard.card.CardItem;
+import com.vhra.dashfi.utils.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +54,8 @@ public class MockCardsDataSource2 implements CardsDataSource {
     }
 
     @Override
-    public List<CardDetail> getCards() {
-        return mCardDetails;
+    public void getCards(Callback<List<CardDetail>> callback) {
+        callback.onComplete(mCardDetails);
     }
 
     private CardDetail createCardDetail(

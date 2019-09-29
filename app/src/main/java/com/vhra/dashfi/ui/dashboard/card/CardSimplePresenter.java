@@ -1,6 +1,6 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
-import com.vhra.dashfi.CardDetail;
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.values.ValuesRepository;
 
 import java.util.Locale;

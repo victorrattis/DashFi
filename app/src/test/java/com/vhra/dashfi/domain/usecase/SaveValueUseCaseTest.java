@@ -1,12 +1,14 @@
 package com.vhra.dashfi.domain.usecase;
 
+import com.vhra.dashfi.data.value.ValuesRepository;
 import com.vhra.dashfi.domain.model.ValueDetail;
-import com.vhra.dashfi.ValueDetailImpl;
-import com.vhra.dashfi.data.ValuesRepository;
 import com.vhra.dashfi.utils.Callback;
 
 import org.junit.Test;
 import org.mockito.stubbing.Answer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.vhra.dashfi.domain.usecase.SaveValueUseCase.UNSAVED_ERROR_EMPTY_TITLE_STATE;
 import static com.vhra.dashfi.domain.usecase.SaveValueUseCase.UNSAVED_ERROR_REPOSITORY_NULL;
@@ -21,10 +23,10 @@ import static org.mockito.Mockito.mock;
 public class SaveValueUseCaseTest {
 
     @Test
-    public void Should_returnRepositoryNullError_when_passRepositoryNull() {
+    public void should_returnRepositoryNullError_when_passRepositoryNull() {
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(null);
 
-        ValueDetail valueDetail = new ValueDetailImpl("", 0, null);
+        ValueDetail valueDetail = createValueDetail("", 0, null);
         saveValueUseCase.execute(valueDetail,
                 result -> assertEquals(UNSAVED_ERROR_REPOSITORY_NULL, result.intValue()));
     }
@@ -43,7 +45,7 @@ public class SaveValueUseCaseTest {
         ValuesRepository valuesRepository = mock(ValuesRepository.class);
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
-        ValueDetail valueDetail = new ValueDetailImpl("", 0, null);
+        ValueDetail valueDetail = createValueDetail("", 10, null);
         saveValueUseCase.execute(valueDetail,
                 result -> assertEquals(UNSAVED_ERROR_EMPTY_TITLE_STATE, result.intValue()));
     }
@@ -59,7 +61,7 @@ public class SaveValueUseCaseTest {
 
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
-        ValueDetail valueDetail = new ValueDetailImpl("value title", 0, null);
+        ValueDetail valueDetail = createValueDetail("value title", 10, null);
         saveValueUseCase.execute(valueDetail,
                 result -> assertEquals(VALUE_SAVED_SUCCESSFULLY_STATE, result.intValue()));
     }
@@ -75,8 +77,32 @@ public class SaveValueUseCaseTest {
 
         SaveValueUseCase saveValueUseCase = new SaveValueUseCase(valuesRepository);
 
-        ValueDetail valueDetail = new ValueDetailImpl("value title", 0, null);
+        ValueDetail valueDetail = createValueDetail("value title", 0, new ArrayList<>());
         saveValueUseCase.execute(valueDetail,
                 result -> assertEquals(UNSAVED_VALUE_STATE, result.intValue()));
+    }
+
+    private ValueDetail createValueDetail(String title, double value, List<String> labels) {
+        return new ValueDetail() {
+            @Override
+            public int getId() {
+                return 0;
+            }
+
+            @Override
+            public String getTitle() {
+                return title;
+            }
+
+            @Override
+            public double getValue() {
+                return value;
+            }
+
+            @Override
+            public List<String> getLabels() {
+                return labels;
+            }
+        };
     }
 }

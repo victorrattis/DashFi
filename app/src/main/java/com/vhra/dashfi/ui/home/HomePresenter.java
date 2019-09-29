@@ -2,7 +2,7 @@ package com.vhra.dashfi.ui.home;
 
 import com.vhra.dashfi.domain.model.ValueDetail;
 
-public class HomePresenter {
+class HomePresenter {
     public interface View {
         void setPresenter(HomePresenter presenter);
         void showDefaultDashBoard();
@@ -12,7 +12,7 @@ public class HomePresenter {
 
     private final View mView;
 
-    public HomePresenter(View view) {
+    HomePresenter(View view) {
         mView = view;
         if (mView != null) mView.setPresenter(this);
     }

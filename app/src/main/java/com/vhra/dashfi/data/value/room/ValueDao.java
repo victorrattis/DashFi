@@ -1,4 +1,4 @@
-package com.vhra.dashfi.data.room;
+package com.vhra.dashfi.data.value.room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

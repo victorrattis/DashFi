@@ -1,4 +1,4 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.vhra.dashfi.CardDetail;
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.R;
 
 class CardSimpleView extends CardView implements CardSimplePresenter.View {

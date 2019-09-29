@@ -1,8 +1,8 @@
-package com.vhra.dashfi.dashboard;
+package com.vhra.dashfi.ui.dashboard.card;
 
 import android.text.TextUtils;
 
-import com.vhra.dashfi.CardDetail;
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.values.ValuesRepository;
 
