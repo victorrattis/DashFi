@@ -1,12 +1,15 @@
 package com.vhra.dashfi.ui.home;
 
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.domain.model.ValueDetail;
 
 class HomePresenter {
+
     public interface View {
         void setPresenter(HomePresenter presenter);
         void showDefaultDashBoard();
         void showAddValueDialog(final ValueDetail valueDetail);
+        void showAddCardDialog(final CardDetail cardDetail);
         void showAllValues();
     }
 
@@ -31,6 +34,10 @@ class HomePresenter {
 
     void onDefaultDashboardOptionClick() {
         mView.showDefaultDashBoard();
+    }
+
+    public void onAddCardOptionClick() {
+        mView.showAddCardDialog(null);
     }
 
     void showValueUpdateDialog(final ValueDetail valueDetail) {

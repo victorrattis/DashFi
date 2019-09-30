@@ -14,11 +14,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.vhra.dashfi.R;
+import com.vhra.dashfi.data.cards.CardsRepository;
 import com.vhra.dashfi.domain.UseCaseHandler;
+import com.vhra.dashfi.domain.model.CardDetail;
 import com.vhra.dashfi.domain.model.ValueDetail;
 import com.vhra.dashfi.domain.usecase.GetCardsUseCase;
 import com.vhra.dashfi.domain.usecase.GetValuesUseCase;
+import com.vhra.dashfi.domain.usecase.SaveCardUseCase;
 import com.vhra.dashfi.domain.usecase.SaveValueUseCase;
+import com.vhra.dashfi.ui.addcard.AddCardDialog;
+import com.vhra.dashfi.ui.addcard.AddCardDialogPresenter;
 import com.vhra.dashfi.ui.addvalue.AddItemDialog;
 import com.vhra.dashfi.ui.addvalue.AddValuePresenter;
 import com.vhra.dashfi.ui.dashboard.DashboardFragment;
@@ -54,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements
 
     private DrawerLayout mDrawer;
     private AddItemDialog mAddValueDialog;
+    private AddCardDialog mAddCardDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +109,19 @@ public class HomeActivity extends AppCompatActivity implements
             case R.id.nav_add_value:
                 mPresenter.onAddValueOptionClick();
                 break;
+
             case R.id.nav_all_values:
                 mPresenter.onAllValuesOptionClick();
+
                 break;
             case R.id.nav_dashboard:
                 mPresenter.onDefaultDashboardOptionClick();
+
+                break;
+            case R.id.nav_add_card:
+                mPresenter.onAddCardOptionClick();
+                break;
+
         }
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
@@ -128,6 +142,17 @@ public class HomeActivity extends AppCompatActivity implements
 
         if (!mAddValueDialog.isShowing()) {
             mAddValueDialog.show();
+        }
+    }
+
+    @Override
+    public void showAddCardDialog(CardDetail cardDetail) {
+        if (mAddCardDialog == null) {
+            mAddCardDialog = createCardDialog(cardDetail, (Void) -> mAddCardDialog = null);
+        }
+
+        if (!mAddCardDialog.isShowing()) {
+            mAddCardDialog.show();
         }
     }
 
@@ -203,6 +228,19 @@ public class HomeActivity extends AppCompatActivity implements
 
         addItemDialog.setOnDismissListener(dialogInterface -> callback.onComplete(null));
         return addItemDialog;
+    }
+
+    private AddCardDialog createCardDialog(
+            final CardDetail cardDetail, final Callback<Void> callback) {
+        AddCardDialog addCardDialog = new AddCardDialog(this);
+        new AddCardDialogPresenter(
+                addCardDialog,
+                cardDetail,
+                mUseCaseHandler,
+                new SaveCardUseCase(getCardsRepository(this)));
+
+        addCardDialog.setOnDismissListener(dialogInterface -> callback.onComplete(null));
+        return addCardDialog;
     }
 
     private SaveValueUseCase getSaveValueUseCase() {

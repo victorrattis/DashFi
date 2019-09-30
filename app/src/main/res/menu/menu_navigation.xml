@@ -12,5 +12,8 @@
     <item
         android:id="@+id/nav_all_values"
         android:title="@string/title_all_values" />
+    <item
+        android:id="@+id/nav_add_card"
+        android:title="@string/title_add_card" />
 
 </menu>

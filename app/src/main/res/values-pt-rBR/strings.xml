@@ -16,4 +16,6 @@
     <string name="text_error_value_without_title">Error ao adicionar: Sem título!</string>
     <string name="title_default_dashboard">Dashboard padrão</string>
     <string name="text_no_cards_message">Sem cards neste dashboard!</string>
+    <string name="title_add_card">Adicionar um Cartão</string>
+    <string name="text_card_title">Cartão</string>
 </resources>
